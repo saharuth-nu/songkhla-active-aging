@@ -1,0 +1,113 @@
+// KPI Definitions — 12 KPIs from TOR Section 7
+export const KPI_DEFINITIONS = [
+  {
+    kpi_no: 1,
+    title: "วิสาหกิจ/กลไกธุรกิจบริการสุขภาพเพื่อสังคม",
+    description: "จำนวนวิสาหกิจหรือกลไกธุรกิจสุขภาพเพื่อสังคมที่จัดตั้งหรือพัฒนา",
+    target: 1,
+    unit: "แห่ง",
+    data_source: "partner",
+  },
+  {
+    kpi_no: 2,
+    title: "ผู้ประกอบการ/บุคลากรสุขภาพชุมชนที่ได้รับการพัฒนา",
+    description: "จำนวนผู้เข้าร่วมการอบรมพัฒนาศักยภาพ",
+    target: 10,
+    unit: "คน",
+    data_source: "training",
+  },
+  {
+    kpi_no: 3,
+    title: "ผู้ได้รับการถ่ายทอดนวัตกรรมสุขภาพ",
+    description: "จำนวนผู้รับการถ่ายทอดนวัตกรรม/เทคโนโลยีสุขภาพ",
+    target: 20,
+    unit: "คน",
+    data_source: "tech_transfer",
+  },
+  {
+    kpi_no: 4,
+    title: "ผลิตภัณฑ์/บริการสุขภาพชุมชน",
+    description: "จำนวนผลิตภัณฑ์หรือบริการสุขภาพชุมชนที่พัฒนาและเผยแพร่",
+    target: 5,
+    unit: "รายการ",
+    data_source: "product_service",
+  },
+  {
+    kpi_no: 5,
+    title: "การหมุนเวียน/กระจายรายได้ในห่วงโซ่คุณค่า",
+    description: "ร้อยละการกระจายรายได้ภายในห่วงโซ่คุณค่าชุมชน",
+    target: 15,
+    unit: "%",
+    data_source: "value_chain",
+  },
+  {
+    kpi_no: 6,
+    title: "การจ้างงานในระบบบริการสุขภาพชุมชน",
+    description: "จำนวนผู้ได้รับการจ้างงานในระบบบริการสุขภาพชุมชน",
+    target: 30,
+    unit: "คน",
+    data_source: "employment",
+  },
+  {
+    kpi_no: 7,
+    title: "ประชาชนเข้าถึงบริการสุขภาพเพิ่มขึ้น",
+    description: "จำนวนประชาชน/ผู้สูงอายุที่เข้าถึงบริการสุขภาพผ่านโครงการ",
+    target: 30,
+    unit: "คน",
+    data_source: "beneficiary",
+  },
+  {
+    kpi_no: 8,
+    title: "เครือข่ายความร่วมมือ",
+    description: "จำนวนเครือข่ายความร่วมมือที่เกิดขึ้น",
+    target: 2,
+    unit: "เครือข่าย",
+    data_source: "partner",
+  },
+  {
+    kpi_no: 9,
+    title: "นวัตกรรม/เทคโนโลยีเพื่อยกระดับ Value Chain",
+    description: "จำนวนนวัตกรรมหรือเทคโนโลยีที่นำมาใช้ยกระดับห่วงโซ่คุณค่า",
+    target: 2,
+    unit: "นวัตกรรม",
+    data_source: "innovation",
+  },
+  {
+    kpi_no: 10,
+    title: "นวัตกรรมระบบ/การจัดการธุรกิจสุขภาพ",
+    description: "จำนวนนวัตกรรมด้านระบบหรือการจัดการธุรกิจสุขภาพ",
+    target: 2,
+    unit: "นวัตกรรม",
+    data_source: "innovation",
+  },
+  {
+    kpi_no: 11,
+    title: "คู่มือ/องค์ความรู้ด้านสุขภาพชุมชน",
+    description: "จำนวนคู่มือหรือองค์ความรู้ที่จัดทำและเผยแพร่",
+    target: 4,
+    unit: "ชุด",
+    data_source: "knowledge",
+  },
+  {
+    kpi_no: 12,
+    title: "ระบบฐานข้อมูล/แพลตฟอร์มดิจิทัล",
+    description: "จำนวนระบบฐานข้อมูลหรือแพลตฟอร์มดิจิทัลที่พัฒนาและใช้งานได้",
+    target: 1,
+    unit: "ระบบ",
+    data_source: "system",
+  },
+]
+
+export const KPI_STATUS_COLORS = {
+  "on-track": "text-blue-600 bg-blue-50",
+  "at-risk": "text-amber-600 bg-amber-50",
+  achieved: "text-green-600 bg-green-50",
+  "not-started": "text-gray-500 bg-gray-50",
+}
+
+export const KPI_STATUS_LABELS = {
+  "on-track": "กำลังดำเนินการ",
+  "at-risk": "ต้องติดตาม",
+  achieved: "บรรลุเป้าหมาย",
+  "not-started": "ยังไม่เริ่ม",
+}
