@@ -13,7 +13,7 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur rounded-full px-4 py-1.5 text-sm mb-6">
               <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
-              โครงการ PSU — Songkhla Active Aging Model ทดสอบใช้งาน
+              โครงการ PSU — Songkhla Active Aging Model ทดสอบใช้งานอีกครั้ง
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
               นวัตกรรมสุขภาวะ<br />
