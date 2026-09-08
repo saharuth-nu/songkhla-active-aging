@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     const adminClient = createAdminClient()
 
     // 1. Create Supabase Auth account so user can login
-    const { data: authData, error: authError } = await adminClient.auth.admin.createUser({
+    const { error: authError } = await adminClient.auth.admin.createUser({
       email: parsed.email,
       password: parsed.password,
       email_confirm: true, // auto-confirm, no email verification required

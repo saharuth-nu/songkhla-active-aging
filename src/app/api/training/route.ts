@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import { trainings } from "@/lib/db/schema"
-import { eq, ilike, and, gte, lte } from "drizzle-orm"
+import { eq, and, gte, lte } from "drizzle-orm"
 import { z } from "zod"
 import { nanoid } from "@/lib/utils/nanoid"
 import { getAuthUser, requireAdmin } from "@/lib/auth/guard"

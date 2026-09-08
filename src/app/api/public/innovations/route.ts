@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import { innovations } from "@/lib/db/schema"
-import { eq, and } from "drizzle-orm"
+import { eq, and, SQL } from "drizzle-orm"
 
 // Public — no auth required
 export async function GET(req: NextRequest) {
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
     const area = searchParams.get("area")
     const innovationType = searchParams.get("innovationType")
 
-    const conditions: any[] = []
+    const conditions: SQL[] = []
     if (area) conditions.push(eq(innovations.area, area))
     if (innovationType) conditions.push(eq(innovations.innovationType, innovationType))
 
