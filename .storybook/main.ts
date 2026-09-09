@@ -11,6 +11,19 @@ const config = {
   docs: {
     defaultName: "Documentation",
   },
+  viteFinal: async (viteConfig) => ({
+    ...viteConfig,
+    optimizeDeps: {
+      ...viteConfig.optimizeDeps,
+      include: [
+        ...(viteConfig.optimizeDeps?.include ?? []),
+        "@radix-ui/react-label",
+        "@radix-ui/react-progress",
+        "@radix-ui/react-tooltip",
+        "lucide-react",
+      ],
+    },
+  }),
 } satisfies StorybookConfig
 
 export default config
