@@ -36,7 +36,9 @@ export async function GET(req: NextRequest) {
     if (beneficiaryType) conditions.push(eq(beneficiaries.beneficiaryType, beneficiaryType))
     if (ageGroup) conditions.push(eq(beneficiaries.ageGroup, ageGroup))
     if (status) conditions.push(eq(beneficiaries.status, status))
-    const result = await db.select().from(beneficiaries)
+    const result = await db
+      .select()
+      .from(beneficiaries)
       .where(conditions.length > 0 ? and(...conditions) : undefined)
       .orderBy(beneficiaries.createdAt)
     return NextResponse.json({ data: result, total: result.length })
@@ -50,10 +52,14 @@ export async function POST(req: NextRequest) {
   if (auth instanceof NextResponse) return auth
   try {
     const parsed = createSchema.parse(await req.json())
-    const [item] = await db.insert(beneficiaries).values({ id: `BNF-${nanoid()}`, ...parsed }).returning()
+    const [item] = await db
+      .insert(beneficiaries)
+      .values({ id: `BNF-${nanoid()}`, ...parsed })
+      .returning()
     return NextResponse.json({ data: item }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to create beneficiary" }, { status: 500 })
   }
 }

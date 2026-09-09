@@ -39,7 +39,9 @@ export async function GET(req: NextRequest) {
     if (area) conditions.push(eq(partners.area, area))
     if (isActive !== null) conditions.push(eq(partners.isActive, isActive === "true"))
 
-    const result = await db.select().from(partners)
+    const result = await db
+      .select()
+      .from(partners)
       .where(conditions.length > 0 ? and(...conditions) : undefined)
       .orderBy(partners.createdAt)
 
@@ -56,10 +58,14 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const parsed = createSchema.parse(body)
-    const [item] = await db.insert(partners).values({ id: `PTN-${nanoid()}`, ...parsed }).returning()
+    const [item] = await db
+      .insert(partners)
+      .values({ id: `PTN-${nanoid()}`, ...parsed })
+      .returning()
     return NextResponse.json({ data: item }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to create partner" }, { status: 500 })
   }
 }

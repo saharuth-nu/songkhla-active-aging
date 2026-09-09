@@ -39,11 +39,16 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     const { id } = await params
     const body = await req.json()
     const parsed = updateSchema.parse(body)
-    const [item] = await db.update(techTransfers).set(parsed).where(eq(techTransfers.id, id)).returning()
+    const [item] = await db
+      .update(techTransfers)
+      .set(parsed)
+      .where(eq(techTransfers.id, id))
+      .returning()
     if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 })
     return NextResponse.json({ data: item })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to update tech transfer" }, { status: 500 })
   }
 }

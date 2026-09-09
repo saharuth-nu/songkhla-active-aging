@@ -39,25 +39,39 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params
     const body = await req.json()
-    const { producerIncome, serviceProviderIncome, communityIncome, otherIncome, distributionNote, ...txData } = updateSchema.parse(body)
+    const {
+      producerIncome,
+      serviceProviderIncome,
+      communityIncome,
+      otherIncome,
+      distributionNote,
+      ...txData
+    } = updateSchema.parse(body)
 
-    const [item] = await db.update(transactions)
+    const [item] = await db
+      .update(transactions)
       .set({ ...txData, updatedAt: new Date() })
       .where(eq(transactions.id, id))
       .returning()
     if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 })
 
     // Auto-create/update value chain when completed
-    if (txData.status === "completed" && (producerIncome !== undefined || communityIncome !== undefined)) {
+    if (
+      txData.status === "completed" &&
+      (producerIncome !== undefined || communityIncome !== undefined)
+    ) {
       const existing = await db.select().from(valueChains).where(eq(valueChains.transactionId, id))
       if (existing.length > 0) {
-        await db.update(valueChains).set({
-          producerIncome: producerIncome?.toString(),
-          serviceProviderIncome: serviceProviderIncome?.toString(),
-          communityIncome: communityIncome?.toString(),
-          otherIncome: otherIncome?.toString(),
-          distributionNote,
-        }).where(eq(valueChains.transactionId, id))
+        await db
+          .update(valueChains)
+          .set({
+            producerIncome: producerIncome?.toString(),
+            serviceProviderIncome: serviceProviderIncome?.toString(),
+            communityIncome: communityIncome?.toString(),
+            otherIncome: otherIncome?.toString(),
+            distributionNote,
+          })
+          .where(eq(valueChains.transactionId, id))
       } else {
         await db.insert(valueChains).values({
           transactionId: id,
@@ -72,7 +86,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
     return NextResponse.json({ data: item })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to update transaction" }, { status: 500 })
   }
 }

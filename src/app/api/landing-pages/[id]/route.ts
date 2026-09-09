@@ -6,7 +6,10 @@ import { eq } from "drizzle-orm"
 import { z } from "zod"
 
 const updateSchema = z.object({
-  slug: z.string().regex(/^[a-z0-9-]+$/).optional(),
+  slug: z
+    .string()
+    .regex(/^[a-z0-9-]+$/)
+    .optional(),
   campaignName: z.string().min(1).optional(),
   headline: z.string().optional(),
   subheadline: z.string().optional(),

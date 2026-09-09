@@ -1,26 +1,42 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "../styles/tokens.css";
+@import "../styles/base.css";
+@import "../styles/accessibility.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-primary: var(--color-action);
+  --color-primary-hover: var(--color-action-hover);
+  --color-primary-active: var(--color-action-active);
+  --color-primary-soft: var(--color-action-soft);
+  --color-brand-blue: var(--color-brand-sea-blue);
+  --color-saa-brand-green: var(--color-brand-green);
+  --color-heading: var(--color-text-heading);
+  --color-body: var(--color-text-body);
+  --color-muted: var(--color-text-muted);
+  --color-saa-canvas: var(--color-canvas);
+  --color-saa-canvas-warm: var(--color-canvas-warm);
+  --color-saa-surface-sky: var(--color-surface-sky);
+  --color-saa-surface-sage: var(--color-surface-sage);
+  --color-saa-surface-sand: var(--color-surface-sand);
+  --color-saa-surface-peach: var(--color-surface-peach);
+  --color-saa-surface-muted: var(--color-surface-muted);
+  --color-saa-border-soft: var(--color-border-soft);
+  --color-saa-border-strong: var(--color-border-strong);
+  --color-saa-border-control: var(--color-border-control);
+  --color-status-success: var(--color-success);
+  --color-status-warning: var(--color-warning);
+  --color-status-danger: var(--color-danger);
+  --color-status-info: var(--color-info);
+  --font-sans: var(--font-noto-sans-thai);
+  --font-latin: var(--font-inter);
+  --radius-saa-xs: var(--radius-xs);
+  --radius-saa-sm: var(--radius-sm);
+  --radius-saa-md: var(--radius-md);
+  --radius-saa-lg: var(--radius-lg);
+  --radius-saa-xl: var(--radius-xl);
+  --radius-saa-pill: var(--radius-pill);
+  --shadow-saa-hairline: var(--shadow-hairline);
+  --shadow-saa-floating: var(--shadow-floating);
+  --shadow-saa-modal: var(--shadow-modal);
+  --shadow-saa-image: var(--shadow-image);
 }

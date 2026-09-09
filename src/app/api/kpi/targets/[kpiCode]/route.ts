@@ -20,14 +20,16 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ kpiC
   try {
     const { kpiCode } = await params
     const parsed = updateSchema.parse(await req.json())
-    const [item] = await db.update(kpiTargets)
+    const [item] = await db
+      .update(kpiTargets)
       .set({ ...parsed, targetValue: parsed.targetValue.toString(), updatedAt: new Date() })
       .where(eq(kpiTargets.kpiCode, kpiCode))
       .returning()
     if (!item) return NextResponse.json({ error: "KPI not found" }, { status: 404 })
     return NextResponse.json({ data: item })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to update KPI target" }, { status: 500 })
   }
 }

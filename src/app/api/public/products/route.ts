@@ -16,21 +16,23 @@ export async function GET(req: NextRequest) {
     if (itemType) conditions.push(eq(productServices.itemType, itemType))
     if (area) conditions.push(eq(productServices.area, area))
 
-    const result = await db.select({
-      id: productServices.id,
-      itemName: productServices.itemName,
-      itemType: productServices.itemType,
-      category: productServices.category,
-      description: productServices.description,
-      partnerName: partners.organizationName,
-      providerName: productServices.providerName,
-      area: productServices.area,
-      priceMin: productServices.priceMin,
-      priceMax: productServices.priceMax,
-      priceNote: productServices.priceNote,
-      imageUrl: productServices.imageUrl,
-      sortOrder: productServices.sortOrder,
-    }).from(productServices)
+    const result = await db
+      .select({
+        id: productServices.id,
+        itemName: productServices.itemName,
+        itemType: productServices.itemType,
+        category: productServices.category,
+        description: productServices.description,
+        partnerName: partners.organizationName,
+        providerName: productServices.providerName,
+        area: productServices.area,
+        priceMin: productServices.priceMin,
+        priceMax: productServices.priceMax,
+        priceNote: productServices.priceNote,
+        imageUrl: productServices.imageUrl,
+        sortOrder: productServices.sortOrder,
+      })
+      .from(productServices)
       .leftJoin(partners, eq(productServices.partnerId, partners.id))
       .where(and(...conditions))
       .orderBy(productServices.sortOrder, productServices.createdAt)

@@ -21,9 +21,12 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ slug: 
     }
 
     // Fetch linked products if any
-    let linkedItems: typeof productServices.$inferSelect[] = []
+    let linkedItems: (typeof productServices.$inferSelect)[] = []
     if (page.linkedItemIds) {
-      const ids = page.linkedItemIds.split(",").map((s) => s.trim()).filter(Boolean)
+      const ids = page.linkedItemIds
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
       if (ids.length > 0) {
         linkedItems = await db
           .select()

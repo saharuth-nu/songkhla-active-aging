@@ -3,8 +3,18 @@ import { KPI_DEFINITIONS, KPI_STATUS_LABELS } from "@/constants/kpi"
 
 // Mock data — will be replaced by real DB queries
 const MOCK_KPI_ACTUALS: Record<number, number> = {
-  1: 0, 2: 0, 3: 0, 4: 0, 5: 0,
-  6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 1,
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
+  8: 0,
+  9: 0,
+  10: 0,
+  11: 0,
+  12: 1,
 }
 
 function getStatus(actual: number, target: number) {
@@ -27,9 +37,10 @@ export default function AdminDashboardPage() {
     ...kpi,
     actual: MOCK_KPI_ACTUALS[kpi.kpi_no] ?? 0,
     status: getStatus(MOCK_KPI_ACTUALS[kpi.kpi_no] ?? 0, kpi.target),
-    pct: kpi.target > 0
-      ? Math.min(Math.round(((MOCK_KPI_ACTUALS[kpi.kpi_no] ?? 0) / kpi.target) * 100), 100)
-      : 0,
+    pct:
+      kpi.target > 0
+        ? Math.min(Math.round(((MOCK_KPI_ACTUALS[kpi.kpi_no] ?? 0) / kpi.target) * 100), 100)
+        : 0,
   }))
 
   const achieved = kpiData.filter((k) => k.status === "achieved").length
@@ -40,35 +51,50 @@ export default function AdminDashboardPage() {
       {/* Page Title */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">ภาพรวมโครงการ</h1>
-        <p className="text-gray-500 text-sm mt-1">
-          Songkhla Active Aging — KPI Dashboard
-        </p>
+        <p className="mt-1 text-sm text-gray-500">Songkhla Active Aging — KPI Dashboard</p>
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {[
-          { label: "KPI ทั้งหมด", value: "12", sub: "ตัวชี้วัด", color: "bg-teal-50 text-teal-700" },
-          { label: "บรรลุเป้าหมาย", value: String(achieved), sub: "KPI", color: "bg-green-50 text-green-700" },
-          { label: "กำลังดำเนินการ", value: String(onTrack), sub: "KPI", color: "bg-blue-50 text-blue-700" },
-          { label: "ยังไม่เริ่ม", value: String(12 - achieved - onTrack), sub: "KPI", color: "bg-gray-50 text-gray-600" },
+          {
+            label: "KPI ทั้งหมด",
+            value: "12",
+            sub: "ตัวชี้วัด",
+            color: "bg-teal-50 text-teal-700",
+          },
+          {
+            label: "บรรลุเป้าหมาย",
+            value: String(achieved),
+            sub: "KPI",
+            color: "bg-green-50 text-green-700",
+          },
+          {
+            label: "กำลังดำเนินการ",
+            value: String(onTrack),
+            sub: "KPI",
+            color: "bg-blue-50 text-blue-700",
+          },
+          {
+            label: "ยังไม่เริ่ม",
+            value: String(12 - achieved - onTrack),
+            sub: "KPI",
+            color: "bg-gray-50 text-gray-600",
+          },
         ].map((card) => (
           <div key={card.label} className={`rounded-xl p-4 ${card.color.split(" ")[0]}`}>
             <div className={`text-3xl font-bold ${card.color.split(" ")[1]}`}>{card.value}</div>
-            <div className="text-sm text-gray-500 mt-0.5">{card.sub}</div>
-            <div className="text-sm font-medium text-gray-700 mt-1">{card.label}</div>
+            <div className="mt-0.5 text-sm text-gray-500">{card.sub}</div>
+            <div className="mt-1 text-sm font-medium text-gray-700">{card.label}</div>
           </div>
         ))}
       </div>
 
       {/* KPI Table */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+      <div className="rounded-2xl border border-gray-100 bg-white shadow-sm">
+        <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
           <h2 className="font-semibold text-gray-900">KPI ทั้ง 12 ตัว</h2>
-          <Link
-            href="/admin/kpi"
-            className="text-sm text-teal-600 hover:text-teal-700 font-medium"
-          >
+          <Link href="/admin/kpi" className="text-sm font-medium text-teal-600 hover:text-teal-700">
             จัดการ KPI →
           </Link>
         </div>
@@ -76,20 +102,20 @@ export default function AdminDashboardPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50">
-                <th className="text-left px-6 py-3 text-gray-500 font-medium w-8">#</th>
-                <th className="text-left px-4 py-3 text-gray-500 font-medium">ตัวชี้วัด</th>
-                <th className="text-center px-4 py-3 text-gray-500 font-medium">เป้าหมาย</th>
-                <th className="text-center px-4 py-3 text-gray-500 font-medium">ผลจริง</th>
-                <th className="text-center px-4 py-3 text-gray-500 font-medium">ความก้าวหน้า</th>
-                <th className="text-center px-4 py-3 text-gray-500 font-medium">สถานะ</th>
+                <th className="w-8 px-6 py-3 text-left font-medium text-gray-500">#</th>
+                <th className="px-4 py-3 text-left font-medium text-gray-500">ตัวชี้วัด</th>
+                <th className="px-4 py-3 text-center font-medium text-gray-500">เป้าหมาย</th>
+                <th className="px-4 py-3 text-center font-medium text-gray-500">ผลจริง</th>
+                <th className="px-4 py-3 text-center font-medium text-gray-500">ความก้าวหน้า</th>
+                <th className="px-4 py-3 text-center font-medium text-gray-500">สถานะ</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {kpiData.map((kpi) => (
-                <tr key={kpi.kpi_no} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4 text-gray-400 font-mono text-xs">{kpi.kpi_no}</td>
+                <tr key={kpi.kpi_no} className="transition-colors hover:bg-gray-50">
+                  <td className="px-6 py-4 font-mono text-xs text-gray-400">{kpi.kpi_no}</td>
                   <td className="px-4 py-4">
-                    <div className="font-medium text-gray-900 leading-tight">{kpi.title}</div>
+                    <div className="leading-tight font-medium text-gray-900">{kpi.title}</div>
                   </td>
                   <td className="px-4 py-4 text-center">
                     <span className="font-semibold text-gray-700">
@@ -102,19 +128,19 @@ export default function AdminDashboardPage() {
                     </span>
                   </td>
                   <td className="px-4 py-4">
-                    <div className="flex items-center gap-2 justify-center">
-                      <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="h-2 w-24 overflow-hidden rounded-full bg-gray-200">
                         <div
-                          className="h-full bg-teal-500 rounded-full transition-all"
+                          className="h-full rounded-full bg-teal-500 transition-all"
                           style={{ width: `${kpi.pct}%` }}
                         />
                       </div>
-                      <span className="text-xs text-gray-500 w-8 text-right">{kpi.pct}%</span>
+                      <span className="w-8 text-right text-xs text-gray-500">{kpi.pct}%</span>
                     </div>
                   </td>
                   <td className="px-4 py-4 text-center">
                     <span
-                      className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${STATUS_STYLES[kpi.status as keyof typeof STATUS_STYLES]}`}
+                      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${STATUS_STYLES[kpi.status as keyof typeof STATUS_STYLES]}`}
                     >
                       {KPI_STATUS_LABELS[kpi.status as keyof typeof KPI_STATUS_LABELS]}
                     </span>
@@ -127,7 +153,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {[
           { label: "เพิ่มผลิตภัณฑ์", href: "/admin/products", icon: "➕" },
           { label: "บันทึกธุรกรรม", href: "/admin/transactions", icon: "📋" },
@@ -137,7 +163,7 @@ export default function AdminDashboardPage() {
           <Link
             key={action.href}
             href={action.href}
-            className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm hover:shadow-md hover:border-teal-200 transition-all flex items-center gap-3"
+            className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all hover:border-teal-200 hover:shadow-md"
           >
             <span className="text-xl">{action.icon}</span>
             <span className="text-sm font-medium text-gray-700">{action.label}</span>

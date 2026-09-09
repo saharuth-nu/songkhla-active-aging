@@ -22,15 +22,19 @@ export async function POST(req: NextRequest) {
   try {
     const parsed = schema.parse(await req.json())
     const id = `BNF-${nanoid()}`
-    const [item] = await db.insert(beneficiaries).values({ id, ...parsed }).returning({
-      id: beneficiaries.id,
-      area: beneficiaries.area,
-      beneficiaryType: beneficiaries.beneficiaryType,
-      createdAt: beneficiaries.createdAt,
-    })
+    const [item] = await db
+      .insert(beneficiaries)
+      .values({ id, ...parsed })
+      .returning({
+        id: beneficiaries.id,
+        area: beneficiaries.area,
+        beneficiaryType: beneficiaries.beneficiaryType,
+        createdAt: beneficiaries.createdAt,
+      })
     return NextResponse.json({ data: item, code: id }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Registration failed" }, { status: 500 })
   }
 }

@@ -14,15 +14,17 @@ export async function GET(req: NextRequest) {
     if (area) conditions.push(eq(innovations.area, area))
     if (innovationType) conditions.push(eq(innovations.innovationType, innovationType))
 
-    const result = await db.select({
-      id: innovations.id,
-      innovationName: innovations.innovationName,
-      innovationType: innovations.innovationType,
-      category: innovations.category,
-      description: innovations.description,
-      area: innovations.area,
-      usageStatus: innovations.usageStatus,
-    }).from(innovations)
+    const result = await db
+      .select({
+        id: innovations.id,
+        innovationName: innovations.innovationName,
+        innovationType: innovations.innovationType,
+        category: innovations.category,
+        description: innovations.description,
+        area: innovations.area,
+        usageStatus: innovations.usageStatus,
+      })
+      .from(innovations)
       .where(conditions.length ? and(...conditions) : undefined)
       .orderBy(innovations.createdAt)
 

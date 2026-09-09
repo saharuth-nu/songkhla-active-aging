@@ -28,23 +28,27 @@ export async function GET(req: NextRequest) {
     const status = searchParams.get("status")
 
     const conditions = []
-    if (search) conditions.push(or(ilike(users.name, `%${search}%`), ilike(users.email, `%${search}%`))!)
+    if (search)
+      conditions.push(or(ilike(users.name, `%${search}%`), ilike(users.email, `%${search}%`))!)
     if (role) conditions.push(eq(users.role, role))
     if (status) conditions.push(eq(users.status, status))
 
-    const result = await db.select({
-      id: users.id,
-      userType: users.userType,
-      role: users.role,
-      name: users.name,
-      email: users.email,
-      phone: users.phone,
-      area: users.area,
-      organization: users.organization,
-      status: users.status,
-      registerDate: users.registerDate,
-      createdAt: users.createdAt,
-    }).from(users).where(conditions.length > 0 ? and(...conditions) : undefined)
+    const result = await db
+      .select({
+        id: users.id,
+        userType: users.userType,
+        role: users.role,
+        name: users.name,
+        email: users.email,
+        phone: users.phone,
+        area: users.area,
+        organization: users.organization,
+        status: users.status,
+        registerDate: users.registerDate,
+        createdAt: users.createdAt,
+      })
+      .from(users)
+      .where(conditions.length > 0 ? and(...conditions) : undefined)
 
     return NextResponse.json({ data: result })
   } catch {
@@ -72,19 +76,23 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Create profile row in our users table
-    const [user] = await db.insert(users).values({
-      userType: parsed.userType,
-      role: parsed.role,
-      name: parsed.name,
-      email: parsed.email,
-      phone: parsed.phone,
-      area: parsed.area,
-      organization: parsed.organization,
-    }).returning({ id: users.id, name: users.name, email: users.email, role: users.role })
+    const [user] = await db
+      .insert(users)
+      .values({
+        userType: parsed.userType,
+        role: parsed.role,
+        name: parsed.name,
+        email: parsed.email,
+        phone: parsed.phone,
+        area: parsed.area,
+        organization: parsed.organization,
+      })
+      .returning({ id: users.id, name: users.name, email: users.email, role: users.role })
 
     return NextResponse.json({ data: user }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to create user" }, { status: 500 })
   }
 }

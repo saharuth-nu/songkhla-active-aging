@@ -15,33 +15,29 @@ const ADMIN_NAV = [
   { href: "/admin/settings", label: "ตั้งค่า", icon: "⚙️" },
 ]
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 flex-shrink-0 hidden md:flex flex-col">
-        <div className="p-4 border-b border-gray-800">
+      <aside className="hidden w-64 flex-shrink-0 flex-col bg-gray-900 md:flex">
+        <div className="border-b border-gray-800 p-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xs">SAA</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-500">
+              <span className="text-xs font-bold text-white">SAA</span>
             </div>
             <div>
-              <div className="text-white text-sm font-semibold">Admin Panel</div>
-              <div className="text-gray-400 text-xs">Active Aging</div>
+              <div className="text-sm font-semibold text-white">Admin Panel</div>
+              <div className="text-xs text-gray-400">Active Aging</div>
             </div>
           </Link>
         </div>
 
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 space-y-1 overflow-y-auto p-3">
           {ADMIN_NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-sm"
+              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-300 transition-colors hover:bg-gray-800 hover:text-white"
             >
               <span>{item.icon}</span>
               <span>{item.label}</span>
@@ -49,10 +45,10 @@ export default function AdminLayout({
           ))}
         </nav>
 
-        <div className="p-3 border-t border-gray-800">
+        <div className="border-t border-gray-800 p-3">
           <Link
             href="/"
-            className="flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-sm transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 transition-colors hover:text-white"
           >
             ← กลับหน้าเว็บหลัก
           </Link>
@@ -60,24 +56,20 @@ export default function AdminLayout({
       </aside>
 
       {/* Main */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex min-h-screen flex-1 flex-col">
         {/* Top Bar */}
-        <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-          <div className="text-sm text-gray-500">
-            Songkhla Active Aging — Admin Panel
-          </div>
+        <header className="flex items-center justify-between border-b border-gray-200 bg-white px-6 py-4">
+          <div className="text-sm text-gray-500">Songkhla Active Aging — Admin Panel</div>
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
-              <span className="text-teal-700 text-sm font-medium">A</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-100">
+              <span className="text-sm font-medium text-teal-700">A</span>
             </div>
-            <span className="text-sm text-gray-700 hidden sm:block">Admin</span>
+            <span className="hidden text-sm text-gray-700 sm:block">Admin</span>
           </div>
         </header>
 
         {/* Content */}
-        <main className="flex-1 p-6">
-          {children}
-        </main>
+        <main className="flex-1 p-6">{children}</main>
       </div>
     </div>
   )

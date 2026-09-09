@@ -14,15 +14,19 @@ export async function GET(req: NextRequest) {
     if (area) conditions.push(eq(partners.area, area))
     if (partnerType) conditions.push(eq(partners.partnerType, partnerType))
 
-    const result = await db.select({
-      id: partners.id,
-      organizationName: partners.organizationName,
-      partnerType: partners.partnerType,
-      networkName: partners.networkName,
-      area: partners.area,
-      agreementType: partners.agreementType,
-      contactPerson: partners.contactPerson,
-    }).from(partners).where(and(...conditions)).orderBy(partners.organizationName)
+    const result = await db
+      .select({
+        id: partners.id,
+        organizationName: partners.organizationName,
+        partnerType: partners.partnerType,
+        networkName: partners.networkName,
+        area: partners.area,
+        agreementType: partners.agreementType,
+        contactPerson: partners.contactPerson,
+      })
+      .from(partners)
+      .where(and(...conditions))
+      .orderBy(partners.organizationName)
 
     return NextResponse.json({ data: result })
   } catch {

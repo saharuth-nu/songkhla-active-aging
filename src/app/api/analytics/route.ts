@@ -22,14 +22,16 @@ const schema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const parsed = schema.parse(await req.json())
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0] ?? req.headers.get("x-real-ip") ?? ""
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0] ?? req.headers.get("x-real-ip") ?? ""
     const ipHash = ip ? createHash("sha256").update(ip).digest("hex").slice(0, 16) : undefined
 
     await db.insert(analyticsEvents).values({ ...parsed, ipHash })
 
     return NextResponse.json({ ok: true }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to track event" }, { status: 500 })
   }
 }

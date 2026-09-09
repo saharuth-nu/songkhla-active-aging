@@ -2,8 +2,13 @@ import { NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import { getAuthUser } from "@/lib/auth/guard"
 import {
-  beneficiaries, transactions, productServices,
-  partners, trainings, employments, innovations,
+  beneficiaries,
+  transactions,
+  productServices,
+  partners,
+  trainings,
+  employments,
+  innovations,
 } from "@/lib/db/schema"
 import { eq, sql, count, countDistinct, sum } from "drizzle-orm"
 
@@ -25,26 +30,39 @@ export async function GET() {
     ] = await Promise.all([
       db.select({ count: count() }).from(beneficiaries).where(eq(beneficiaries.status, "active")),
       db.select({ count: count() }).from(transactions),
-      db.select({ total: sum(transactions.amount) }).from(transactions).where(eq(transactions.status, "completed")),
+      db
+        .select({ total: sum(transactions.amount) })
+        .from(transactions)
+        .where(eq(transactions.status, "completed")),
       db.select({ count: count() }).from(productServices).where(eq(productServices.isActive, true)),
       db.select({ count: count() }).from(partners).where(eq(partners.isActive, true)),
-      db.select({ count: countDistinct(employments.personCode) }).from(employments).where(eq(employments.isActive, true)),
+      db
+        .select({ count: countDistinct(employments.personCode) })
+        .from(employments)
+        .where(eq(employments.isActive, true)),
       db.select({ count: count() }).from(trainings),
       db.select({ count: count() }).from(innovations),
-      db.select({
-        id: transactions.id,
-        itemName: transactions.itemName,
-        requesterName: transactions.requesterName,
-        amount: transactions.amount,
-        status: transactions.status,
-        transactionDate: transactions.transactionDate,
-        area: transactions.area,
-        source: transactions.source,
-      }).from(transactions).orderBy(sql`${transactions.createdAt} DESC`).limit(10),
-      db.select({
-        status: transactions.status,
-        count: count(),
-      }).from(transactions).groupBy(transactions.status),
+      db
+        .select({
+          id: transactions.id,
+          itemName: transactions.itemName,
+          requesterName: transactions.requesterName,
+          amount: transactions.amount,
+          status: transactions.status,
+          transactionDate: transactions.transactionDate,
+          area: transactions.area,
+          source: transactions.source,
+        })
+        .from(transactions)
+        .orderBy(sql`${transactions.createdAt} DESC`)
+        .limit(10),
+      db
+        .select({
+          status: transactions.status,
+          count: count(),
+        })
+        .from(transactions)
+        .groupBy(transactions.status),
     ])
 
     return NextResponse.json({

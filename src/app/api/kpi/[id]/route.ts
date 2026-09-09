@@ -35,17 +35,21 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     const body = await req.json()
     const parsed = manualInputSchema.parse(body)
 
-    const [input] = await db.insert(kpiManualInputs).values({
-      kpiCode: id,
-      period: parsed.period,
-      actualValue: parsed.actualValue.toString(),
-      note: parsed.note,
-      inputBy: parsed.inputBy,
-    }).returning()
+    const [input] = await db
+      .insert(kpiManualInputs)
+      .values({
+        kpiCode: id,
+        period: parsed.period,
+        actualValue: parsed.actualValue.toString(),
+        note: parsed.note,
+        inputBy: parsed.inputBy,
+      })
+      .returning()
 
     return NextResponse.json({ data: input }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to save KPI input" }, { status: 500 })
   }
 }
