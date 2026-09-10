@@ -17,16 +17,22 @@ export type AuthUser = {
  */
 export async function getAuthUser(): Promise<AuthUser | NextResponse> {
   const supabase = await createClient()
-  const { data: { user }, error } = await supabase.auth.getUser()
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
 
   if (error || !user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const [dbUser] = await db.select({
-    role: users.role,
-    name: users.name,
-  }).from(users).where(eq(users.email, user.email!))
+  const [dbUser] = await db
+    .select({
+      role: users.role,
+      name: users.name,
+    })
+    .from(users)
+    .where(eq(users.email, user.email!))
 
   if (!dbUser) {
     return NextResponse.json({ error: "User not found" }, { status: 401 })
@@ -60,7 +66,7 @@ export async function requireAdmin(): Promise<AuthUser | NextResponse> {
  * Usage: export const GET = withAdmin(async (req, user) => { ... })
  */
 export function withAdmin(
-  handler: (req: NextRequest, user: AuthUser, context?: unknown) => Promise<NextResponse>
+  handler: (req: NextRequest, user: AuthUser, context?: unknown) => Promise<NextResponse>,
 ) {
   return async (req: NextRequest, context?: unknown) => {
     const result = await requireAdmin()
@@ -73,7 +79,7 @@ export function withAdmin(
  * HOC wrapper for any authenticated user (admin or viewer).
  */
 export function withAuth(
-  handler: (req: NextRequest, user: AuthUser, context?: unknown) => Promise<NextResponse>
+  handler: (req: NextRequest, user: AuthUser, context?: unknown) => Promise<NextResponse>,
 ) {
   return async (req: NextRequest, context?: unknown) => {
     const result = await getAuthUser()

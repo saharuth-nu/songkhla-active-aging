@@ -12,7 +12,9 @@ const createSchema = z.object({
   category: z.string().optional(),
   description: z.string().optional(),
   area: z.string().optional(),
-  usageStatus: z.enum(["prototype", "piloting", "in_use", "transferred", "development"]).default("development"),
+  usageStatus: z
+    .enum(["prototype", "piloting", "in_use", "transferred", "development"])
+    .default("development"),
   valueChainRole: z.string().optional(),
   evidenceUrl: z.string().optional(),
 })
@@ -29,7 +31,9 @@ export async function GET(req: NextRequest) {
     if (search) conditions.push(ilike(innovations.innovationName, `%${search}%`))
     if (innovationType) conditions.push(eq(innovations.innovationType, innovationType))
     if (area) conditions.push(eq(innovations.area, area))
-    const result = await db.select().from(innovations)
+    const result = await db
+      .select()
+      .from(innovations)
       .where(conditions.length > 0 ? and(...conditions) : undefined)
       .orderBy(innovations.createdAt)
     return NextResponse.json({ data: result })
@@ -43,10 +47,14 @@ export async function POST(req: NextRequest) {
   if (auth instanceof NextResponse) return auth
   try {
     const parsed = createSchema.parse(await req.json())
-    const [item] = await db.insert(innovations).values({ id: `INN-${nanoid()}`, ...parsed }).returning()
+    const [item] = await db
+      .insert(innovations)
+      .values({ id: `INN-${nanoid()}`, ...parsed })
+      .returning()
     return NextResponse.json({ data: item }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to create innovation" }, { status: 500 })
   }
 }

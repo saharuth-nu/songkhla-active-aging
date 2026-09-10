@@ -7,21 +7,23 @@ import { eq, and } from "drizzle-orm"
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
-    const [item] = await db.select({
-      id: productServices.id,
-      itemName: productServices.itemName,
-      itemType: productServices.itemType,
-      category: productServices.category,
-      description: productServices.description,
-      partnerId: productServices.partnerId,
-      partnerName: partners.organizationName,
-      providerName: productServices.providerName,
-      area: productServices.area,
-      priceMin: productServices.priceMin,
-      priceMax: productServices.priceMax,
-      priceNote: productServices.priceNote,
-      imageUrl: productServices.imageUrl,
-    }).from(productServices)
+    const [item] = await db
+      .select({
+        id: productServices.id,
+        itemName: productServices.itemName,
+        itemType: productServices.itemType,
+        category: productServices.category,
+        description: productServices.description,
+        partnerId: productServices.partnerId,
+        partnerName: partners.organizationName,
+        providerName: productServices.providerName,
+        area: productServices.area,
+        priceMin: productServices.priceMin,
+        priceMax: productServices.priceMax,
+        priceNote: productServices.priceNote,
+        imageUrl: productServices.imageUrl,
+      })
+      .from(productServices)
       .leftJoin(partners, eq(productServices.partnerId, partners.id))
       .where(and(eq(productServices.id, id), eq(productServices.isActive, true)))
 

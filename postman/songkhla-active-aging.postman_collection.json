@@ -22,7 +22,11 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/auth/me", "host": ["{{base_url}}"], "path": ["api", "auth", "me"] },
+            "url": {
+              "raw": "{{base_url}}/api/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "me"]
+            },
             "description": "ดูข้อมูล user ที่ login อยู่ (name, role, area, organization)\n\n**ต้องการ Auth:** ใช่"
           }
         },
@@ -31,7 +35,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/auth/login", "host": ["{{base_url}}"], "path": ["api", "auth", "login"] },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}",
@@ -61,7 +69,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/auth/logout", "host": ["{{base_url}}"], "path": ["api", "auth", "logout"] },
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "logout"]
+            },
             "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } },
             "description": "ออกจากระบบ ลบ session cookie\n\n**ต้องการ Auth:** ใช่"
           }
@@ -71,7 +83,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/auth/change-password", "host": ["{{base_url}}"], "path": ["api", "auth", "change-password"] },
+            "url": {
+              "raw": "{{base_url}}/api/auth/change-password",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "change-password"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"currentPassword\": \"password123\",\n  \"newPassword\": \"newPassword456\"\n}",
@@ -98,7 +114,11 @@
               "query": [
                 { "key": "search", "value": "", "description": "ค้นหาจาก name หรือ email" },
                 { "key": "role", "value": "", "description": "กรองตาม role: admin | viewer" },
-                { "key": "status", "value": "active", "description": "กรองตาม status: active | inactive" }
+                {
+                  "key": "status",
+                  "value": "active",
+                  "description": "กรองตาม status: active | inactive"
+                }
               ]
             },
             "description": "ดูรายการ user ทั้งหมด\n\n**Role ที่เข้าถึงได้:** admin"
@@ -109,7 +129,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/users", "host": ["{{base_url}}"], "path": ["api", "users"] },
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"userType\": \"staff\",\n  \"role\": \"viewer\",\n  \"name\": \"สมชาย ใจดี\",\n  \"email\": \"somchai@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"0812345678\",\n  \"area\": \"หาดใหญ่\",\n  \"organization\": \"สำนักงานสาธารณสุข\"\n}",
@@ -123,7 +147,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/users/:id", "host": ["{{base_url}}"], "path": ["api", "users", ":id"], "variable": [{ "key": "id", "value": "uuid-ของ-user" }] },
+            "url": {
+              "raw": "{{base_url}}/api/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", ":id"],
+              "variable": [{ "key": "id", "value": "uuid-ของ-user" }]
+            },
             "description": "ดูรายละเอียด user คนเดียว\n\n**Role ที่เข้าถึงได้:** admin"
           }
         },
@@ -132,7 +161,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/users/:id", "host": ["{{base_url}}"], "path": ["api", "users", ":id"], "variable": [{ "key": "id", "value": "uuid-ของ-user" }] },
+            "url": {
+              "raw": "{{base_url}}/api/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", ":id"],
+              "variable": [{ "key": "id", "value": "uuid-ของ-user" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"role\": \"admin\",\n  \"name\": \"สมชาย ใจดีมาก\",\n  \"phone\": \"0898765432\",\n  \"area\": \"สงขลา\",\n  \"organization\": \"โรงพยาบาล\",\n  \"status\": \"active\"\n}",
@@ -146,7 +180,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/users/:id", "host": ["{{base_url}}"], "path": ["api", "users", ":id"], "variable": [{ "key": "id", "value": "uuid-ของ-user" }] },
+            "url": {
+              "raw": "{{base_url}}/api/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "users", ":id"],
+              "variable": [{ "key": "id", "value": "uuid-ของ-user" }]
+            },
             "description": "ปิดใช้งาน user (soft delete) และ revoke Supabase session ทั้งหมด\n\n**Role ที่เข้าถึงได้:** admin"
           }
         }
@@ -167,7 +206,11 @@
               "path": ["api", "partners"],
               "query": [
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" },
-                { "key": "partnerType", "value": "", "description": "กรองตามประเภท: SE | NGO | hospital | university | government | private" },
+                {
+                  "key": "partnerType",
+                  "value": "",
+                  "description": "กรองตามประเภท: SE | NGO | hospital | university | government | private"
+                },
                 { "key": "isActive", "value": "true", "description": "กรองตามสถานะ: true | false" }
               ]
             },
@@ -179,7 +222,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/partners", "host": ["{{base_url}}"], "path": ["api", "partners"] },
+            "url": {
+              "raw": "{{base_url}}/api/partners",
+              "host": ["{{base_url}}"],
+              "path": ["api", "partners"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"organizationName\": \"วิสาหกิจชุมชนสุขภาพหาดใหญ่\",\n  \"partnerType\": \"SE\",\n  \"networkName\": \"เครือข่ายสุขภาพผู้สูงอายุ\",\n  \"area\": \"หาดใหญ่\",\n  \"agreementType\": \"MOU\",\n  \"agreementDate\": \"2025-01-01\",\n  \"startDate\": \"2025-01-01\",\n  \"contactPerson\": \"นายสมพร รักดี\",\n  \"contactPhone\": \"0812345678\",\n  \"contactEmail\": \"contact@se-hatyai.com\",\n  \"isActive\": true\n}",
@@ -193,7 +240,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/partners/:id", "host": ["{{base_url}}"], "path": ["api", "partners", ":id"], "variable": [{ "key": "id", "value": "PTN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/partners/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "partners", ":id"],
+              "variable": [{ "key": "id", "value": "PTN-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดภาคี\n\n**Role:** admin / viewer"
           }
         },
@@ -202,7 +254,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/partners/:id", "host": ["{{base_url}}"], "path": ["api", "partners", ":id"], "variable": [{ "key": "id", "value": "PTN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/partners/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "partners", ":id"],
+              "variable": [{ "key": "id", "value": "PTN-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"organizationName\": \"วิสาหกิจชุมชนสุขภาพหาดใหญ่ (แก้ไข)\",\n  \"isActive\": true\n}",
@@ -216,7 +273,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/partners/:id", "host": ["{{base_url}}"], "path": ["api", "partners", ":id"], "variable": [{ "key": "id", "value": "PTN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/partners/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "partners", ":id"],
+              "variable": [{ "key": "id", "value": "PTN-XXXXXXXX" }]
+            },
             "description": "ปิดใช้งานภาคี (soft delete — set isActive=false)\n\n**Role:** admin"
           }
         }
@@ -237,7 +299,11 @@
               "path": ["api", "innovation"],
               "query": [
                 { "key": "search", "value": "", "description": "ค้นหาจากชื่อนวัตกรรม" },
-                { "key": "innovationType", "value": "", "description": "technology | business_system | service_model | product" },
+                {
+                  "key": "innovationType",
+                  "value": "",
+                  "description": "technology | business_system | service_model | product"
+                },
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" }
               ]
             },
@@ -249,7 +315,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/innovation", "host": ["{{base_url}}"], "path": ["api", "innovation"] },
+            "url": {
+              "raw": "{{base_url}}/api/innovation",
+              "host": ["{{base_url}}"],
+              "path": ["api", "innovation"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"innovationName\": \"แอปพลิเคชันติดตามสุขภาพผู้สูงอายุ\",\n  \"innovationType\": \"technology\",\n  \"category\": \"Digital Health\",\n  \"description\": \"แอปพลิเคชันสำหรับติดตามสุขภาพและแจ้งเตือนผู้ดูแล\",\n  \"area\": \"หาดใหญ่\",\n  \"usageStatus\": \"piloting\",\n  \"valueChainRole\": \"service_provider\"\n}",
@@ -263,7 +333,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/innovation/:id", "host": ["{{base_url}}"], "path": ["api", "innovation", ":id"], "variable": [{ "key": "id", "value": "INN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/innovation/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "innovation", ":id"],
+              "variable": [{ "key": "id", "value": "INN-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดนวัตกรรม\n\n**Role:** admin / viewer"
           }
         },
@@ -272,7 +347,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/innovation/:id", "host": ["{{base_url}}"], "path": ["api", "innovation", ":id"], "variable": [{ "key": "id", "value": "INN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/innovation/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "innovation", ":id"],
+              "variable": [{ "key": "id", "value": "INN-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"usageStatus\": \"in_use\",\n  \"description\": \"อัพเดทรายละเอียด\"\n}",
@@ -286,7 +366,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/innovation/:id", "host": ["{{base_url}}"], "path": ["api", "innovation", ":id"], "variable": [{ "key": "id", "value": "INN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/innovation/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "innovation", ":id"],
+              "variable": [{ "key": "id", "value": "INN-XXXXXXXX" }]
+            },
             "description": "ลบนวัตกรรม (hard delete)\n\n**Role:** admin"
           }
         }
@@ -307,7 +392,11 @@
               "path": ["api", "products"],
               "query": [
                 { "key": "search", "value": "", "description": "ค้นหาจากชื่อสินค้า" },
-                { "key": "itemType", "value": "", "description": "product | service | health_service" },
+                {
+                  "key": "itemType",
+                  "value": "",
+                  "description": "product | service | health_service"
+                },
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" },
                 { "key": "isActive", "value": "true", "description": "true | false" }
               ]
@@ -320,7 +409,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/products", "host": ["{{base_url}}"], "path": ["api", "products"] },
+            "url": {
+              "raw": "{{base_url}}/api/products",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"itemName\": \"บริการดูแลผู้สูงอายุที่บ้าน\",\n  \"itemType\": \"health_service\",\n  \"category\": \"Home Care\",\n  \"description\": \"บริการดูแลผู้สูงอายุที่บ้านโดยพยาบาลวิชาชีพ\",\n  \"partnerId\": \"PTN-XXXXXXXX\",\n  \"providerName\": \"ทีมพยาบาลชุมชน\",\n  \"area\": \"หาดใหญ่\",\n  \"priceMin\": 500,\n  \"priceMax\": 1500,\n  \"priceNote\": \"ราคาขึ้นอยู่กับระยะทาง\",\n  \"isActive\": true,\n  \"sortOrder\": 1\n}",
@@ -334,7 +427,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/products/:id", "host": ["{{base_url}}"], "path": ["api", "products", ":id"], "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/products/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", ":id"],
+              "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดสินค้า/บริการ\n\n**Role:** admin / viewer"
           }
         },
@@ -343,7 +441,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/products/:id", "host": ["{{base_url}}"], "path": ["api", "products", ":id"], "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/products/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", ":id"],
+              "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"priceMin\": 600,\n  \"priceMax\": 1800,\n  \"isActive\": true\n}",
@@ -357,7 +460,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/products/:id", "host": ["{{base_url}}"], "path": ["api", "products", ":id"], "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/products/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "products", ":id"],
+              "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }]
+            },
             "description": "ปิดใช้งานสินค้า (soft delete — set isActive=false)\n\n**Role:** admin"
           }
         }
@@ -378,7 +486,11 @@
               "path": ["api", "beneficiaries"],
               "query": [
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" },
-                { "key": "beneficiaryType", "value": "", "description": "elderly | caregiver | community_member" },
+                {
+                  "key": "beneficiaryType",
+                  "value": "",
+                  "description": "elderly | caregiver | community_member"
+                },
                 { "key": "ageGroup", "value": "", "description": "60-64 | 65-69 | 70-74 | 75+" },
                 { "key": "status", "value": "active", "description": "active | inactive" }
               ]
@@ -391,7 +503,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/beneficiaries", "host": ["{{base_url}}"], "path": ["api", "beneficiaries"] },
+            "url": {
+              "raw": "{{base_url}}/api/beneficiaries",
+              "host": ["{{base_url}}"],
+              "path": ["api", "beneficiaries"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"area\": \"หาดใหญ่\",\n  \"subdistrict\": \"หาดใหญ่\",\n  \"ageGroup\": \"65-69\",\n  \"gender\": \"หญิง\",\n  \"beneficiaryType\": \"elderly\",\n  \"serviceReceived\": \"บริการดูแลที่บ้าน\",\n  \"serviceDate\": \"2025-01-15\",\n  \"consentGiven\": true,\n  \"consentDate\": \"2025-01-15\",\n  \"notes\": \"มีโรคประจำตัว: ความดันโลหิตสูง\"\n}",
@@ -405,7 +521,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/beneficiaries/:id", "host": ["{{base_url}}"], "path": ["api", "beneficiaries", ":id"], "variable": [{ "key": "id", "value": "BNF-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/beneficiaries/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "beneficiaries", ":id"],
+              "variable": [{ "key": "id", "value": "BNF-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดผู้รับบริการ\n\n**Role:** admin / viewer"
           }
         },
@@ -414,7 +535,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/beneficiaries/:id", "host": ["{{base_url}}"], "path": ["api", "beneficiaries", ":id"], "variable": [{ "key": "id", "value": "BNF-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/beneficiaries/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "beneficiaries", ":id"],
+              "variable": [{ "key": "id", "value": "BNF-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"midlineStatus\": \"สุขภาพดีขึ้น\",\n  \"endlineStatus\": \"สุขภาพดีมาก\",\n  \"notes\": \"อัพเดทล่าสุด\"\n}",
@@ -428,7 +554,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/beneficiaries/:id", "host": ["{{base_url}}"], "path": ["api", "beneficiaries", ":id"], "variable": [{ "key": "id", "value": "BNF-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/beneficiaries/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "beneficiaries", ":id"],
+              "variable": [{ "key": "id", "value": "BNF-XXXXXXXX" }]
+            },
             "description": "ปิดใช้งานผู้รับบริการ (soft delete)\n\n**Role:** admin"
           }
         }
@@ -448,7 +579,11 @@
               "host": ["{{base_url}}"],
               "path": ["api", "transactions"],
               "query": [
-                { "key": "status", "value": "", "description": "pending | confirmed | completed | cancelled" },
+                {
+                  "key": "status",
+                  "value": "",
+                  "description": "pending | confirmed | completed | cancelled"
+                },
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" },
                 { "key": "dateFrom", "value": "", "description": "YYYY-MM-DD" },
                 { "key": "dateTo", "value": "", "description": "YYYY-MM-DD" },
@@ -463,7 +598,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/transactions", "host": ["{{base_url}}"], "path": ["api", "transactions"] },
+            "url": {
+              "raw": "{{base_url}}/api/transactions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "transactions"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"itemId\": \"PRD-XXXXXXXX\",\n  \"itemName\": \"บริการดูแลผู้สูงอายุ\",\n  \"beneficiaryCode\": \"BNF-XXXXXXXX\",\n  \"requesterName\": \"นายสมศักดิ์ ใจดี\",\n  \"requesterContact\": \"0812345678\",\n  \"qty\": 1,\n  \"amount\": 1000,\n  \"transactionDate\": \"2025-01-15\",\n  \"area\": \"หาดใหญ่\",\n  \"source\": \"walk-in\",\n  \"paymentMethod\": \"โอนเงิน\"\n}",
@@ -477,7 +616,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/transactions/:id", "host": ["{{base_url}}"], "path": ["api", "transactions", ":id"], "variable": [{ "key": "id", "value": "TXN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/transactions/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "transactions", ":id"],
+              "variable": [{ "key": "id", "value": "TXN-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดธุรกรรม (รวม value chain ถ้ามี)\n\n**Role:** admin / viewer"
           }
         },
@@ -486,7 +630,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/transactions/:id", "host": ["{{base_url}}"], "path": ["api", "transactions", ":id"], "variable": [{ "key": "id", "value": "TXN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/transactions/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "transactions", ":id"],
+              "variable": [{ "key": "id", "value": "TXN-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"status\": \"completed\",\n  \"adminNote\": \"ดำเนินการเรียบร้อย\",\n  \"paymentMethod\": \"โอนเงิน\",\n  \"producerIncome\": 600,\n  \"serviceProviderIncome\": 200,\n  \"communityIncome\": 150,\n  \"otherIncome\": 50,\n  \"distributionNote\": \"แบ่งตามสัดส่วนที่ตกลงกัน\"\n}",
@@ -511,7 +660,11 @@
               "host": ["{{base_url}}"],
               "path": ["api", "training"],
               "query": [
-                { "key": "participantType", "value": "", "description": "elderly | caregiver | health_personnel | entrepreneur" },
+                {
+                  "key": "participantType",
+                  "value": "",
+                  "description": "elderly | caregiver | health_personnel | entrepreneur"
+                },
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" },
                 { "key": "dateFrom", "value": "", "description": "YYYY-MM-DD" },
                 { "key": "dateTo", "value": "", "description": "YYYY-MM-DD" }
@@ -525,7 +678,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/training", "host": ["{{base_url}}"], "path": ["api", "training"] },
+            "url": {
+              "raw": "{{base_url}}/api/training",
+              "host": ["{{base_url}}"],
+              "path": ["api", "training"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"title\": \"อบรมการดูแลผู้สูงอายุเบื้องต้น\",\n  \"trainingType\": \"workshop\",\n  \"participantCode\": \"P001\",\n  \"participantName\": \"นางสาวสมหญิง ดีงาม\",\n  \"participantType\": \"health_personnel\",\n  \"organization\": \"โรงพยาบาลส่งเสริมสุขภาพ\",\n  \"area\": \"หาดใหญ่\",\n  \"trainingDate\": \"2025-02-01\",\n  \"location\": \"ห้องประชุม A\",\n  \"durationHours\": 6,\n  \"preScore\": 65,\n  \"postScore\": 85,\n  \"passStatus\": \"pass\"\n}",
@@ -539,7 +696,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/training/:id", "host": ["{{base_url}}"], "path": ["api", "training", ":id"], "variable": [{ "key": "id", "value": "TRN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/training/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "training", ":id"],
+              "variable": [{ "key": "id", "value": "TRN-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดการอบรม\n\n**Role:** admin / viewer"
           }
         },
@@ -548,7 +710,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/training/:id", "host": ["{{base_url}}"], "path": ["api", "training", ":id"], "variable": [{ "key": "id", "value": "TRN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/training/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "training", ":id"],
+              "variable": [{ "key": "id", "value": "TRN-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"postScore\": 90,\n  \"passStatus\": \"pass\",\n  \"evidenceUrl\": \"https://drive.google.com/file/xxx\"\n}",
@@ -562,7 +729,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/training/:id", "host": ["{{base_url}}"], "path": ["api", "training", ":id"], "variable": [{ "key": "id", "value": "TRN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/training/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "training", ":id"],
+              "variable": [{ "key": "id", "value": "TRN-XXXXXXXX" }]
+            },
             "description": "ลบการอบรม (hard delete)\n\n**Role:** admin"
           }
         }
@@ -594,7 +766,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/tech-transfer", "host": ["{{base_url}}"], "path": ["api", "tech-transfer"] },
+            "url": {
+              "raw": "{{base_url}}/api/tech-transfer",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tech-transfer"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"innovationId\": \"INN-XXXXXXXX\",\n  \"innovationName\": \"แอปติดตามสุขภาพ\",\n  \"participantCode\": \"P001\",\n  \"participantName\": \"นายสมชาย ใจดี\",\n  \"organization\": \"องค์การบริหารส่วนตำบล\",\n  \"area\": \"หาดใหญ่\",\n  \"transferDate\": \"2025-03-01\",\n  \"transferMethod\": \"training\",\n  \"notes\": \"ถ่ายทอดผ่านการอบรมเชิงปฏิบัติการ\"\n}",
@@ -608,7 +784,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/tech-transfer/:id", "host": ["{{base_url}}"], "path": ["api", "tech-transfer", ":id"], "variable": [{ "key": "id", "value": "TRF-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/tech-transfer/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tech-transfer", ":id"],
+              "variable": [{ "key": "id", "value": "TRF-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดการถ่ายทอด\n\n**Role:** admin / viewer"
           }
         },
@@ -617,7 +798,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/tech-transfer/:id", "host": ["{{base_url}}"], "path": ["api", "tech-transfer", ":id"], "variable": [{ "key": "id", "value": "TRF-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/tech-transfer/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tech-transfer", ":id"],
+              "variable": [{ "key": "id", "value": "TRF-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"status\": \"completed\",\n  \"evidenceUrl\": \"https://drive.google.com/file/xxx\"\n}",
@@ -631,7 +817,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/tech-transfer/:id", "host": ["{{base_url}}"], "path": ["api", "tech-transfer", ":id"], "variable": [{ "key": "id", "value": "TRF-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/tech-transfer/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "tech-transfer", ":id"],
+              "variable": [{ "key": "id", "value": "TRF-XXXXXXXX" }]
+            },
             "description": "ลบการถ่ายทอด\n\n**Role:** admin"
           }
         }
@@ -652,7 +843,11 @@
               "path": ["api", "employment"],
               "query": [
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" },
-                { "key": "employmentType", "value": "", "description": "fulltime | parttime | volunteer | contract" },
+                {
+                  "key": "employmentType",
+                  "value": "",
+                  "description": "fulltime | parttime | volunteer | contract"
+                },
                 { "key": "isActive", "value": "true", "description": "true | false" }
               ]
             },
@@ -664,7 +859,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/employment", "host": ["{{base_url}}"], "path": ["api", "employment"] },
+            "url": {
+              "raw": "{{base_url}}/api/employment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "employment"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"personCode\": \"P001\",\n  \"personName\": \"นางสมหญิง สุขใจ\",\n  \"position\": \"ผู้ดูแลผู้สูงอายุ\",\n  \"organization\": \"วิสาหกิจชุมชนสุขภาพ\",\n  \"employmentType\": \"parttime\",\n  \"area\": \"หาดใหญ่\",\n  \"startDate\": \"2025-01-01\",\n  \"isActive\": true\n}",
@@ -678,7 +877,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/employment/:id", "host": ["{{base_url}}"], "path": ["api", "employment", ":id"], "variable": [{ "key": "id", "value": "EMP-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/employment/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "employment", ":id"],
+              "variable": [{ "key": "id", "value": "EMP-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดการจ้างงาน\n\n**Role:** admin / viewer"
           }
         },
@@ -687,7 +891,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/employment/:id", "host": ["{{base_url}}"], "path": ["api", "employment", ":id"], "variable": [{ "key": "id", "value": "EMP-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/employment/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "employment", ":id"],
+              "variable": [{ "key": "id", "value": "EMP-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"endDate\": \"2025-12-31\",\n  \"isActive\": false,\n  \"status\": \"ended\"\n}",
@@ -701,7 +910,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/employment/:id", "host": ["{{base_url}}"], "path": ["api", "employment", ":id"], "variable": [{ "key": "id", "value": "EMP-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/employment/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "employment", ":id"],
+              "variable": [{ "key": "id", "value": "EMP-XXXXXXXX" }]
+            },
             "description": "สิ้นสุดการจ้างงาน (soft delete — set isActive=false, status=ended)\n\n**Role:** admin"
           }
         }
@@ -722,9 +936,17 @@
               "path": ["api", "knowledge"],
               "query": [
                 { "key": "search", "value": "", "description": "ค้นหาจากชื่อเนื้อหา" },
-                { "key": "contentType", "value": "", "description": "manual | article | vdo | infographic | report | news" },
+                {
+                  "key": "contentType",
+                  "value": "",
+                  "description": "manual | article | vdo | infographic | report | news"
+                },
                 { "key": "isPublished", "value": "", "description": "true | false" },
-                { "key": "channel", "value": "", "description": "กรองตาม channel: facebook | line | website" }
+                {
+                  "key": "channel",
+                  "value": "",
+                  "description": "กรองตาม channel: facebook | line | website"
+                }
               ]
             },
             "description": "ดูรายการเนื้อหาทั้งหมด (admin view — รวม unpublished)\n\n**Role:** admin / viewer"
@@ -735,7 +957,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/knowledge", "host": ["{{base_url}}"], "path": ["api", "knowledge"] },
+            "url": {
+              "raw": "{{base_url}}/api/knowledge",
+              "host": ["{{base_url}}"],
+              "path": ["api", "knowledge"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"title\": \"คู่มือดูแลผู้สูงอายุที่บ้าน\",\n  \"contentType\": \"manual\",\n  \"category\": \"Home Care\",\n  \"description\": \"คู่มือสำหรับผู้ดูแลผู้สูงอายุในชุมชน\",\n  \"bodyText\": \"เนื้อหาคู่มือ...\",\n  \"fileUrl\": \"https://drive.google.com/file/xxx\",\n  \"thumbnailUrl\": \"https://example.com/thumb.jpg\",\n  \"channel\": \"website\",\n  \"campaign\": \"health-2025\",\n  \"publishDate\": \"2025-02-01\",\n  \"isPublished\": true,\n  \"isFeatured\": false\n}",
@@ -749,7 +975,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/knowledge/:id", "host": ["{{base_url}}"], "path": ["api", "knowledge", ":id"], "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/knowledge/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "knowledge", ":id"],
+              "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียดเนื้อหา\n\n**Role:** admin / viewer"
           }
         },
@@ -758,7 +989,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/knowledge/:id", "host": ["{{base_url}}"], "path": ["api", "knowledge", ":id"], "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/knowledge/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "knowledge", ":id"],
+              "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"isPublished\": true,\n  \"isFeatured\": true,\n  \"reach\": 1500,\n  \"engagement\": 300,\n  \"clickCount\": 250\n}",
@@ -772,7 +1008,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/knowledge/:id", "host": ["{{base_url}}"], "path": ["api", "knowledge", ":id"], "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/knowledge/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "knowledge", ":id"],
+              "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }]
+            },
             "description": "ยกเลิกการเผยแพร่ (soft delete — set isPublished=false)\n\n**Role:** admin"
           }
         }
@@ -805,7 +1046,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/kpi/:kpiCode", "host": ["{{base_url}}"], "path": ["api", "kpi", ":kpiCode"], "variable": [{ "key": "kpiCode", "value": "KPI12" }] },
+            "url": {
+              "raw": "{{base_url}}/api/kpi/:kpiCode",
+              "host": ["{{base_url}}"],
+              "path": ["api", "kpi", ":kpiCode"],
+              "variable": [{ "key": "kpiCode", "value": "KPI12" }]
+            },
             "description": "ดู target และ manual input history ของ KPI หนึ่งตัว\n\n**kpiCode:** KPI01–KPI12\n\n**Role:** admin / viewer"
           }
         },
@@ -814,7 +1060,12 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/kpi/:kpiCode", "host": ["{{base_url}}"], "path": ["api", "kpi", ":kpiCode"], "variable": [{ "key": "kpiCode", "value": "KPI12" }] },
+            "url": {
+              "raw": "{{base_url}}/api/kpi/:kpiCode",
+              "host": ["{{base_url}}"],
+              "path": ["api", "kpi", ":kpiCode"],
+              "variable": [{ "key": "kpiCode", "value": "KPI12" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"period\": \"Q1-2568\",\n  \"actualValue\": 1,\n  \"note\": \"ระบบเปิดใช้งานจริงแล้ว\",\n  \"inputBy\": \"uuid-ของ-admin\"\n}",
@@ -828,7 +1079,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/kpi/targets/:kpiCode", "host": ["{{base_url}}"], "path": ["api", "kpi", "targets", ":kpiCode"], "variable": [{ "key": "kpiCode", "value": "KPI01" }] },
+            "url": {
+              "raw": "{{base_url}}/api/kpi/targets/:kpiCode",
+              "host": ["{{base_url}}"],
+              "path": ["api", "kpi", "targets", ":kpiCode"],
+              "variable": [{ "key": "kpiCode", "value": "KPI01" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"targetValue\": 2,\n  \"targetUnit\": \"แห่ง\",\n  \"kpiDescription\": \"วิสาหกิจที่จดทะเบียนถูกต้องตามกฎหมาย\"\n}",
@@ -848,7 +1104,11 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/dashboard", "host": ["{{base_url}}"], "path": ["api", "dashboard"] },
+            "url": {
+              "raw": "{{base_url}}/api/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["api", "dashboard"]
+            },
             "description": "ภาพรวมทั้งหมด — summary counts + recent transactions + transactions by status\n\n**Role:** admin / viewer"
           }
         },
@@ -861,7 +1121,13 @@
               "raw": "{{base_url}}/api/dashboard/area?area=",
               "host": ["{{base_url}}"],
               "path": ["api", "dashboard", "area"],
-              "query": [{ "key": "area", "value": "", "description": "กรองพื้นที่เดียว (ถ้าไม่ระบุ = ทุกพื้นที่)" }]
+              "query": [
+                {
+                  "key": "area",
+                  "value": "",
+                  "description": "กรองพื้นที่เดียว (ถ้าไม่ระบุ = ทุกพื้นที่)"
+                }
+              ]
             },
             "description": "ข้อมูลแยกตามพื้นที่ — beneficiary, transaction, training, employment, partner แต่ละพื้นที่\n\n**Role:** admin / viewer"
           }
@@ -916,7 +1182,13 @@
               "raw": "{{base_url}}/api/import-export/:module",
               "host": ["{{base_url}}"],
               "path": ["api", "import-export", ":module"],
-              "variable": [{ "key": "module", "value": "beneficiaries", "description": "beneficiaries | transactions | training | tech-transfer | employment | partners | innovations | knowledge" }]
+              "variable": [
+                {
+                  "key": "module",
+                  "value": "beneficiaries",
+                  "description": "beneficiaries | transactions | training | tech-transfer | employment | partners | innovations | knowledge"
+                }
+              ]
             },
             "description": "Export ข้อมูลทั้งหมดของ module นั้นเป็น CSV\n\n**Role:** admin"
           }
@@ -930,7 +1202,13 @@
               "raw": "{{base_url}}/api/import-export/:module?template=true",
               "host": ["{{base_url}}"],
               "path": ["api", "import-export", ":module"],
-              "query": [{ "key": "template", "value": "true", "description": "ดาวน์โหลด template ว่างพร้อม header" }],
+              "query": [
+                {
+                  "key": "template",
+                  "value": "true",
+                  "description": "ดาวน์โหลด template ว่างพร้อม header"
+                }
+              ],
               "variable": [{ "key": "module", "value": "training" }]
             },
             "description": "ดาวน์โหลด CSV template พร้อม header และข้อมูลตัวอย่าง 1 แถว\n\n**Role:** admin"
@@ -966,7 +1244,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/register", "host": ["{{base_url}}"], "path": ["api", "register"] },
+            "url": {
+              "raw": "{{base_url}}/api/register",
+              "host": ["{{base_url}}"],
+              "path": ["api", "register"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"area\": \"หาดใหญ่\",\n  \"subdistrict\": \"หาดใหญ่\",\n  \"ageGroup\": \"65-69\",\n  \"gender\": \"ชาย\",\n  \"beneficiaryType\": \"elderly\",\n  \"serviceReceived\": \"บริการดูแลที่บ้าน\",\n  \"serviceDate\": \"2025-01-15\",\n  \"consentGiven\": true,\n  \"consentDate\": \"2025-01-15\"\n}",
@@ -980,7 +1262,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/request", "host": ["{{base_url}}"], "path": ["api", "request"] },
+            "url": {
+              "raw": "{{base_url}}/api/request",
+              "host": ["{{base_url}}"],
+              "path": ["api", "request"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"itemId\": \"PRD-XXXXXXXX\",\n  \"itemName\": \"บริการดูแลผู้สูงอายุ\",\n  \"requesterName\": \"นางสาวสมหญิง ดีใจ\",\n  \"requesterContact\": \"0812345678\",\n  \"qty\": 1,\n  \"amount\": 1000,\n  \"transactionDate\": \"2025-01-15\",\n  \"area\": \"หาดใหญ่\",\n  \"source\": \"facebook\",\n  \"campaign\": \"new-year-2025\",\n  \"utmSource\": \"facebook\",\n  \"utmMedium\": \"social\",\n  \"utmContent\": \"banner_1\"\n}",
@@ -994,7 +1280,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/request/:code", "host": ["{{base_url}}"], "path": ["api", "request", ":code"], "variable": [{ "key": "code", "value": "TXN-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/request/:code",
+              "host": ["{{base_url}}"],
+              "path": ["api", "request", ":code"],
+              "variable": [{ "key": "code", "value": "TXN-XXXXXXXX" }]
+            },
             "description": "ติดตามสถานะคำขอด้วย tracking code\n\n**ไม่ต้องการ Auth**"
           }
         },
@@ -1003,7 +1294,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/analytics", "host": ["{{base_url}}"], "path": ["api", "analytics"] },
+            "url": {
+              "raw": "{{base_url}}/api/analytics",
+              "host": ["{{base_url}}"],
+              "path": ["api", "analytics"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"sessionId\": \"sess_abc123\",\n  \"pageUrl\": \"/products/PRD-XXXXXXXX\",\n  \"eventType\": \"pageview\",\n  \"area\": \"หาดใหญ่\",\n  \"utmSource\": \"facebook\",\n  \"utmMedium\": \"social\",\n  \"utmCampaign\": \"product_launch\",\n  \"utmContent\": \"banner_1\"\n}",
@@ -1023,7 +1318,11 @@
               "path": ["api", "public", "products"],
               "query": [
                 { "key": "search", "value": "", "description": "ค้นหาจากชื่อ" },
-                { "key": "itemType", "value": "", "description": "product | service | health_service" },
+                {
+                  "key": "itemType",
+                  "value": "",
+                  "description": "product | service | health_service"
+                },
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" }
               ]
             },
@@ -1035,7 +1334,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/public/products/:id", "host": ["{{base_url}}"], "path": ["api", "public", "products", ":id"], "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/public/products/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "public", "products", ":id"],
+              "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }]
+            },
             "description": "รายละเอียดสินค้า/บริการสำหรับหน้า public (/products/[id])\n\n**ไม่ต้องการ Auth**"
           }
         },
@@ -1067,7 +1371,11 @@
               "path": ["api", "public", "knowledge"],
               "query": [
                 { "key": "search", "value": "", "description": "ค้นหาจากชื่อ" },
-                { "key": "contentType", "value": "", "description": "manual | article | vdo | infographic | report | news" },
+                {
+                  "key": "contentType",
+                  "value": "",
+                  "description": "manual | article | vdo | infographic | report | news"
+                },
                 { "key": "channel", "value": "", "description": "facebook | line | website" }
               ]
             },
@@ -1079,7 +1387,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/public/knowledge/:id", "host": ["{{base_url}}"], "path": ["api", "public", "knowledge", ":id"], "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/public/knowledge/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "public", "knowledge", ":id"],
+              "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }]
+            },
             "description": "รายละเอียดเนื้อหาสำหรับหน้า public (/knowledge/[id])\n\n**ไม่ต้องการ Auth**"
           }
         },
@@ -1094,7 +1407,11 @@
               "path": ["api", "public", "innovations"],
               "query": [
                 { "key": "area", "value": "", "description": "กรองตามพื้นที่" },
-                { "key": "innovationType", "value": "", "description": "technology | business_system | service_model | product" }
+                {
+                  "key": "innovationType",
+                  "value": "",
+                  "description": "technology | business_system | service_model | product"
+                }
               ]
             },
             "description": "รายการนวัตกรรมสำหรับหน้า public (/innovation)\n\n**ไม่ต้องการ Auth**"
@@ -1105,7 +1422,11 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/public/kpi", "host": ["{{base_url}}"], "path": ["api", "public", "kpi"] },
+            "url": {
+              "raw": "{{base_url}}/api/public/kpi",
+              "host": ["{{base_url}}"],
+              "path": ["api", "public", "kpi"]
+            },
             "description": "KPI targets สำหรับหน้า /impact (แสดงเป้าหมาย ไม่แสดง actual)\n\n**ไม่ต้องการ Auth**"
           }
         },
@@ -1128,7 +1449,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/public/news/:id", "host": ["{{base_url}}"], "path": ["api", "public", "news", ":id"], "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/public/news/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "public", "news", ":id"],
+              "variable": [{ "key": "id", "value": "KNW-XXXXXXXX" }]
+            },
             "description": "รายละเอียดข่าว/กิจกรรม\n\n**ไม่ต้องการ Auth**"
           }
         },
@@ -1151,7 +1477,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/public/health-services/:id", "host": ["{{base_url}}"], "path": ["api", "public", "health-services", ":id"], "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/public/health-services/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "public", "health-services", ":id"],
+              "variable": [{ "key": "id", "value": "PRD-XXXXXXXX" }]
+            },
             "description": "รายละเอียดบริการสุขภาพ\n\n**ไม่ต้องการ Auth**"
           }
         },
@@ -1160,7 +1491,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/public/lp/:slug", "host": ["{{base_url}}"], "path": ["api", "public", "lp", ":slug"], "variable": [{ "key": "slug", "value": "hatyai-health-2025" }] },
+            "url": {
+              "raw": "{{base_url}}/api/public/lp/:slug",
+              "host": ["{{base_url}}"],
+              "path": ["api", "public", "lp", ":slug"],
+              "variable": [{ "key": "slug", "value": "hatyai-health-2025" }]
+            },
             "description": "ดึงข้อมูล Campaign Landing Page จาก slug\n\nResponse รวม `linkedItems` (สินค้า/บริการที่ link ไว้)\n\n**ไม่ต้องการ Auth**"
           }
         },
@@ -1169,7 +1505,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/contact", "host": ["{{base_url}}"], "path": ["api", "contact"] },
+            "url": {
+              "raw": "{{base_url}}/api/contact",
+              "host": ["{{base_url}}"],
+              "path": ["api", "contact"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"นางสาวสมหญิง ดีใจ\",\n  \"phone\": \"0812345678\",\n  \"email\": \"somying@example.com\",\n  \"subject\": \"สอบถามบริการดูแลผู้สูงอายุ\",\n  \"message\": \"อยากทราบรายละเอียดและราคาบริการดูแลที่บ้าน\",\n  \"area\": \"หาดใหญ่\"\n}",
@@ -1206,7 +1546,11 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/landing-pages", "host": ["{{base_url}}"], "path": ["api", "landing-pages"] },
+            "url": {
+              "raw": "{{base_url}}/api/landing-pages",
+              "host": ["{{base_url}}"],
+              "path": ["api", "landing-pages"]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"slug\": \"hatyai-health-2025\",\n  \"campaignName\": \"หาดใหญ่สุขภาพดี 2568\",\n  \"headline\": \"บริการสุขภาพผู้สูงอายุในชุมชน\",\n  \"subheadline\": \"เข้าถึงง่าย ราคาเป็นธรรม ดูแลโดยคนในชุมชน\",\n  \"bodyText\": \"รายละเอียดเพิ่มเติม...\",\n  \"linkedItemIds\": \"PRD-XXXXXXXX,PRD-YYYYYYYY\",\n  \"utmSource\": \"facebook\",\n  \"utmMedium\": \"social\",\n  \"utmCampaign\": \"hatyai-health-2025\",\n  \"ctaText\": \"สนใจรับบริการ\",\n  \"ctaUrl\": \"/request/new\",\n  \"isActive\": true,\n  \"publishDate\": \"2025-01-01\",\n  \"expiryDate\": \"2025-12-31\"\n}",
@@ -1220,7 +1564,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/landing-pages/:id", "host": ["{{base_url}}"], "path": ["api", "landing-pages", ":id"], "variable": [{ "key": "id", "value": "LP-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/landing-pages/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "landing-pages", ":id"],
+              "variable": [{ "key": "id", "value": "LP-XXXXXXXX" }]
+            },
             "description": "ดูรายละเอียด Landing Page\n\n**Role:** admin / viewer"
           }
         },
@@ -1229,7 +1578,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/landing-pages/:id", "host": ["{{base_url}}"], "path": ["api", "landing-pages", ":id"], "variable": [{ "key": "id", "value": "LP-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/landing-pages/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "landing-pages", ":id"],
+              "variable": [{ "key": "id", "value": "LP-XXXXXXXX" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"headline\": \"แก้ไข Headline\",\n  \"isActive\": false\n}",
@@ -1243,7 +1597,12 @@
           "request": {
             "method": "DELETE",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/landing-pages/:id", "host": ["{{base_url}}"], "path": ["api", "landing-pages", ":id"], "variable": [{ "key": "id", "value": "LP-XXXXXXXX" }] },
+            "url": {
+              "raw": "{{base_url}}/api/landing-pages/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "landing-pages", ":id"],
+              "variable": [{ "key": "id", "value": "LP-XXXXXXXX" }]
+            },
             "description": "ลบ Landing Page (hard delete)\n\n**Role:** admin"
           }
         }
@@ -1262,7 +1621,9 @@
               "raw": "{{base_url}}/api/contact?status=new",
               "host": ["{{base_url}}"],
               "path": ["api", "contact"],
-              "query": [{ "key": "status", "value": "new", "description": "new | read | replied | closed" }]
+              "query": [
+                { "key": "status", "value": "new", "description": "new | read | replied | closed" }
+              ]
             },
             "description": "รายการคำถาม/ติดต่อทั้งหมด\n\n**Role:** admin / viewer"
           }
@@ -1272,7 +1633,12 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{base_url}}/api/contact/:id", "host": ["{{base_url}}"], "path": ["api", "contact", ":id"], "variable": [{ "key": "id", "value": "uuid-ของ-inquiry" }] },
+            "url": {
+              "raw": "{{base_url}}/api/contact/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "contact", ":id"],
+              "variable": [{ "key": "id", "value": "uuid-ของ-inquiry" }]
+            },
             "description": "ดูรายละเอียดคำถาม\n\n**Role:** admin"
           }
         },
@@ -1281,7 +1647,12 @@
           "request": {
             "method": "PUT",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": { "raw": "{{base_url}}/api/contact/:id", "host": ["{{base_url}}"], "path": ["api", "contact", ":id"], "variable": [{ "key": "id", "value": "uuid-ของ-inquiry" }] },
+            "url": {
+              "raw": "{{base_url}}/api/contact/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "contact", ":id"],
+              "variable": [{ "key": "id", "value": "uuid-ของ-inquiry" }]
+            },
             "body": {
               "mode": "raw",
               "raw": "{\n  \"status\": \"replied\",\n  \"adminNote\": \"ตอบผ่านทางโทรศัพท์แล้ว\"\n}",

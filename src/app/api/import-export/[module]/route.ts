@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import {
-  beneficiaries, transactions, trainings, techTransfers,
-  employments, partners, innovations, knowledgeContents,
+  beneficiaries,
+  transactions,
+  trainings,
+  techTransfers,
+  employments,
+  partners,
+  innovations,
+  knowledgeContents,
 } from "@/lib/db/schema"
 import { requireAdmin } from "@/lib/auth/guard"
 import { nanoid } from "@/lib/utils/nanoid"
@@ -13,50 +19,138 @@ const MODULE_CONFIG = {
   beneficiaries: {
     table: beneficiaries,
     idPrefix: "BNF",
-    csvHeaders: ["area", "subdistrict", "ageGroup", "gender", "beneficiaryType", "serviceReceived", "serviceDate", "consentGiven", "notes"],
-    template: "area,subdistrict,ageGroup,gender,beneficiaryType,serviceReceived,serviceDate,consentGiven,notes\nพื้นที่ตัวอย่าง,ตำบล,60-64,ชาย,elderly,บริการตัวอย่าง,2025-01-01,true,หมายเหตุ",
+    csvHeaders: [
+      "area",
+      "subdistrict",
+      "ageGroup",
+      "gender",
+      "beneficiaryType",
+      "serviceReceived",
+      "serviceDate",
+      "consentGiven",
+      "notes",
+    ],
+    template:
+      "area,subdistrict,ageGroup,gender,beneficiaryType,serviceReceived,serviceDate,consentGiven,notes\nพื้นที่ตัวอย่าง,ตำบล,60-64,ชาย,elderly,บริการตัวอย่าง,2025-01-01,true,หมายเหตุ",
   },
   transactions: {
     table: transactions,
     idPrefix: "TXN",
-    csvHeaders: ["itemName", "requesterName", "requesterContact", "qty", "amount", "transactionDate", "area", "source", "campaign", "paymentMethod"],
-    template: "itemName,requesterName,requesterContact,qty,amount,transactionDate,area,source,campaign,paymentMethod\nสินค้าตัวอย่าง,ชื่อผู้ขอ,0812345678,1,500,2025-01-01,หาดใหญ่,facebook,,โอนเงิน",
+    csvHeaders: [
+      "itemName",
+      "requesterName",
+      "requesterContact",
+      "qty",
+      "amount",
+      "transactionDate",
+      "area",
+      "source",
+      "campaign",
+      "paymentMethod",
+    ],
+    template:
+      "itemName,requesterName,requesterContact,qty,amount,transactionDate,area,source,campaign,paymentMethod\nสินค้าตัวอย่าง,ชื่อผู้ขอ,0812345678,1,500,2025-01-01,หาดใหญ่,facebook,,โอนเงิน",
   },
   training: {
     table: trainings,
     idPrefix: "TRN",
-    csvHeaders: ["title", "trainingType", "participantCode", "participantName", "participantType", "organization", "area", "trainingDate", "location", "durationHours", "preScore", "postScore", "passStatus"],
-    template: "title,trainingType,participantCode,participantName,participantType,organization,area,trainingDate,location,durationHours,preScore,postScore,passStatus\nหัวข้ออบรม,workshop,P001,ชื่อผู้เข้าร่วม,entrepreneur,องค์กร,หาดใหญ่,2025-01-01,ห้องประชุม,6,70,85,pass",
+    csvHeaders: [
+      "title",
+      "trainingType",
+      "participantCode",
+      "participantName",
+      "participantType",
+      "organization",
+      "area",
+      "trainingDate",
+      "location",
+      "durationHours",
+      "preScore",
+      "postScore",
+      "passStatus",
+    ],
+    template:
+      "title,trainingType,participantCode,participantName,participantType,organization,area,trainingDate,location,durationHours,preScore,postScore,passStatus\nหัวข้ออบรม,workshop,P001,ชื่อผู้เข้าร่วม,entrepreneur,องค์กร,หาดใหญ่,2025-01-01,ห้องประชุม,6,70,85,pass",
   },
   "tech-transfer": {
     table: techTransfers,
     idPrefix: "TRF",
-    csvHeaders: ["innovationName", "participantCode", "participantName", "organization", "area", "transferDate", "transferMethod", "notes"],
-    template: "innovationName,participantCode,participantName,organization,area,transferDate,transferMethod,notes\nนวัตกรรมตัวอย่าง,P001,ชื่อผู้รับการถ่ายทอด,องค์กร,หาดใหญ่,2025-01-01,training,หมายเหตุ",
+    csvHeaders: [
+      "innovationName",
+      "participantCode",
+      "participantName",
+      "organization",
+      "area",
+      "transferDate",
+      "transferMethod",
+      "notes",
+    ],
+    template:
+      "innovationName,participantCode,participantName,organization,area,transferDate,transferMethod,notes\nนวัตกรรมตัวอย่าง,P001,ชื่อผู้รับการถ่ายทอด,องค์กร,หาดใหญ่,2025-01-01,training,หมายเหตุ",
   },
   employment: {
     table: employments,
     idPrefix: "EMP",
-    csvHeaders: ["personCode", "personName", "position", "organization", "employmentType", "area", "startDate", "endDate", "isActive"],
-    template: "personCode,personName,position,organization,employmentType,area,startDate,endDate,isActive\nP001,ชื่อพนักงาน,ตำแหน่ง,องค์กร,fulltime,หาดใหญ่,2025-01-01,,true",
+    csvHeaders: [
+      "personCode",
+      "personName",
+      "position",
+      "organization",
+      "employmentType",
+      "area",
+      "startDate",
+      "endDate",
+      "isActive",
+    ],
+    template:
+      "personCode,personName,position,organization,employmentType,area,startDate,endDate,isActive\nP001,ชื่อพนักงาน,ตำแหน่ง,องค์กร,fulltime,หาดใหญ่,2025-01-01,,true",
   },
   partners: {
     table: partners,
     idPrefix: "PTN",
-    csvHeaders: ["organizationName", "partnerType", "networkName", "area", "agreementType", "agreementDate", "contactPerson", "contactPhone", "contactEmail"],
-    template: "organizationName,partnerType,networkName,area,agreementType,agreementDate,contactPerson,contactPhone,contactEmail\nองค์กรตัวอย่าง,SE,เครือข่าย,หาดใหญ่,MOU,2025-01-01,ชื่อผู้ติดต่อ,0812345678,email@example.com",
+    csvHeaders: [
+      "organizationName",
+      "partnerType",
+      "networkName",
+      "area",
+      "agreementType",
+      "agreementDate",
+      "contactPerson",
+      "contactPhone",
+      "contactEmail",
+    ],
+    template:
+      "organizationName,partnerType,networkName,area,agreementType,agreementDate,contactPerson,contactPhone,contactEmail\nองค์กรตัวอย่าง,SE,เครือข่าย,หาดใหญ่,MOU,2025-01-01,ชื่อผู้ติดต่อ,0812345678,email@example.com",
   },
   innovations: {
     table: innovations,
     idPrefix: "INN",
-    csvHeaders: ["innovationName", "innovationType", "category", "description", "area", "usageStatus"],
-    template: "innovationName,innovationType,category,description,area,usageStatus\nนวัตกรรมตัวอย่าง,technology,หมวดหมู่,รายละเอียด,หาดใหญ่,piloting",
+    csvHeaders: [
+      "innovationName",
+      "innovationType",
+      "category",
+      "description",
+      "area",
+      "usageStatus",
+    ],
+    template:
+      "innovationName,innovationType,category,description,area,usageStatus\nนวัตกรรมตัวอย่าง,technology,หมวดหมู่,รายละเอียด,หาดใหญ่,piloting",
   },
   knowledge: {
     table: knowledgeContents,
     idPrefix: "KNW",
-    csvHeaders: ["title", "contentType", "category", "description", "channel", "campaign", "publishDate", "isPublished"],
-    template: "title,contentType,category,description,channel,campaign,publishDate,isPublished\nหัวข้อเนื้อหา,article,หมวดหมู่,รายละเอียด,facebook,แคมเปญ,2025-01-01,true",
+    csvHeaders: [
+      "title",
+      "contentType",
+      "category",
+      "description",
+      "channel",
+      "campaign",
+      "publishDate",
+      "isPublished",
+    ],
+    template:
+      "title,contentType,category,description,channel,campaign,publishDate,isPublished\nหัวข้อเนื้อหา,article,หมวดหมู่,รายละเอียด,facebook,แคมเปญ,2025-01-01,true",
   },
 } as const
 
@@ -69,7 +163,9 @@ function rowsToCsv(rows: Record<string, any>[]): string {
       const v = row[h]
       if (v === null || v === undefined) return ""
       const s = String(v)
-      return s.includes(",") || s.includes('"') || s.includes("\n") ? `"${s.replace(/"/g, '""')}"` : s
+      return s.includes(",") || s.includes('"') || s.includes("\n")
+        ? `"${s.replace(/"/g, '""')}"`
+        : s
     })
     lines.push(values.join(","))
   }
@@ -133,16 +229,23 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ mod
 
     const text = await req.text()
     const rows = parseCsv(text)
-    if (rows.length === 0) return NextResponse.json({ error: "No data rows found" }, { status: 400 })
+    if (rows.length === 0)
+      return NextResponse.json({ error: "No data rows found" }, { status: 400 })
 
     const toInsert = rows.map((row) => ({
       id: `${config.idPrefix}-${nanoid()}`,
       ...row,
     }))
 
-    await db.insert(config.table as any).values(toInsert).onConflictDoNothing()
+    await db
+      .insert(config.table as any)
+      .values(toInsert)
+      .onConflictDoNothing()
 
-    return NextResponse.json({ imported: toInsert.length, message: `${toInsert.length} rows imported` })
+    return NextResponse.json({
+      imported: toInsert.length,
+      message: `${toInsert.length} rows imported`,
+    })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ error: "Import failed" }, { status: 500 })

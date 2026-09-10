@@ -66,14 +66,18 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const parsed = createSchema.parse(body)
 
-    const [item] = await db.insert(techTransfers).values({
-      id: `TRF-${nanoid()}`,
-      ...parsed,
-    }).returning()
+    const [item] = await db
+      .insert(techTransfers)
+      .values({
+        id: `TRF-${nanoid()}`,
+        ...parsed,
+      })
+      .returning()
 
     return NextResponse.json({ data: item }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to create tech transfer" }, { status: 500 })
   }
 }

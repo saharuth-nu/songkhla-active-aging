@@ -16,18 +16,20 @@ export async function GET(req: NextRequest) {
     if (contentType) conditions.push(eq(knowledgeContents.contentType, contentType))
     if (channel) conditions.push(eq(knowledgeContents.channel, channel))
 
-    const result = await db.select({
-      id: knowledgeContents.id,
-      title: knowledgeContents.title,
-      contentType: knowledgeContents.contentType,
-      category: knowledgeContents.category,
-      description: knowledgeContents.description,
-      thumbnailUrl: knowledgeContents.thumbnailUrl,
-      externalUrl: knowledgeContents.externalUrl,
-      channel: knowledgeContents.channel,
-      publishDate: knowledgeContents.publishDate,
-      isFeatured: knowledgeContents.isFeatured,
-    }).from(knowledgeContents)
+    const result = await db
+      .select({
+        id: knowledgeContents.id,
+        title: knowledgeContents.title,
+        contentType: knowledgeContents.contentType,
+        category: knowledgeContents.category,
+        description: knowledgeContents.description,
+        thumbnailUrl: knowledgeContents.thumbnailUrl,
+        externalUrl: knowledgeContents.externalUrl,
+        channel: knowledgeContents.channel,
+        publishDate: knowledgeContents.publishDate,
+        isFeatured: knowledgeContents.isFeatured,
+      })
+      .from(knowledgeContents)
       .where(and(...conditions))
       .orderBy(knowledgeContents.publishDate)
 

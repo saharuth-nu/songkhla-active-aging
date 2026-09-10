@@ -7,7 +7,10 @@ import { nanoid } from "nanoid"
 import { z } from "zod"
 
 const createSchema = z.object({
-  slug: z.string().min(1).regex(/^[a-z0-9-]+$/, "slug ต้องเป็นตัวเล็กภาษาอังกฤษ ตัวเลข หรือ - เท่านั้น"),
+  slug: z
+    .string()
+    .min(1)
+    .regex(/^[a-z0-9-]+$/, "slug ต้องเป็นตัวเล็กภาษาอังกฤษ ตัวเลข หรือ - เท่านั้น"),
   campaignName: z.string().min(1),
   headline: z.string().optional(),
   subheadline: z.string().optional(),
@@ -46,7 +49,7 @@ export async function GET(req: NextRequest) {
     rows = rows.filter(
       (r) =>
         r.campaignName.toLowerCase().includes(search.toLowerCase()) ||
-        r.slug.toLowerCase().includes(search.toLowerCase())
+        r.slug.toLowerCase().includes(search.toLowerCase()),
     )
   }
 

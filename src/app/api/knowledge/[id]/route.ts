@@ -44,11 +44,16 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     const { id } = await params
     const body = await req.json()
     const parsed = updateSchema.parse(body)
-    const [item] = await db.update(knowledgeContents).set({ ...parsed, updatedAt: new Date() }).where(eq(knowledgeContents.id, id)).returning()
+    const [item] = await db
+      .update(knowledgeContents)
+      .set({ ...parsed, updatedAt: new Date() })
+      .where(eq(knowledgeContents.id, id))
+      .returning()
     if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 })
     return NextResponse.json({ data: item })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to update knowledge content" }, { status: 500 })
   }
 }
@@ -58,7 +63,10 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
   if (auth instanceof NextResponse) return auth
   try {
     const { id } = await params
-    await db.update(knowledgeContents).set({ isPublished: false, updatedAt: new Date() }).where(eq(knowledgeContents.id, id))
+    await db
+      .update(knowledgeContents)
+      .set({ isPublished: false, updatedAt: new Date() })
+      .where(eq(knowledgeContents.id, id))
     return NextResponse.json({ message: "Content unpublished" })
   } catch {
     return NextResponse.json({ error: "Failed to delete knowledge content" }, { status: 500 })

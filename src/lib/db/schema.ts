@@ -92,10 +92,9 @@ export const productServices = pgTable("product_services", {
   itemType: varchar("item_type", { length: 50 }).notNull(),
   category: varchar("category", { length: 100 }),
   description: text("description"),
-  partnerId: varchar("partner_id", { length: 50 }).references(
-    () => partners.id,
-    { onDelete: "set null" }
-  ),
+  partnerId: varchar("partner_id", { length: 50 }).references(() => partners.id, {
+    onDelete: "set null",
+  }),
   providerName: varchar("provider_name", { length: 255 }),
   area: varchar("area", { length: 50 }),
   priceMin: numeric("price_min", { precision: 10, scale: 2 }),
@@ -110,10 +109,9 @@ export const productServices = pgTable("product_services", {
 // ─── Transactions ────────────────────────────────────────
 export const transactions = pgTable("transactions", {
   id: varchar("transaction_id", { length: 50 }).primaryKey(),
-  itemId: varchar("item_id", { length: 50 }).references(
-    () => productServices.id,
-    { onDelete: "set null" }
-  ),
+  itemId: varchar("item_id", { length: 50 }).references(() => productServices.id, {
+    onDelete: "set null",
+  }),
   itemName: varchar("item_name", { length: 255 }),
   beneficiaryCode: varchar("beneficiary_code", { length: 50 }),
   requesterName: varchar("requester_name", { length: 255 }),
@@ -137,12 +135,13 @@ export const transactions = pgTable("transactions", {
 // ─── Value Chain ──────────────────────────────────────────
 export const valueChains = pgTable("value_chains", {
   id: uuid("id").primaryKey().defaultRandom(),
-  transactionId: varchar("transaction_id", { length: 50 }).references(
-    () => transactions.id,
-    { onDelete: "cascade" }
-  ),
+  transactionId: varchar("transaction_id", { length: 50 }).references(() => transactions.id, {
+    onDelete: "cascade",
+  }),
   producerIncome: numeric("producer_income", { precision: 10, scale: 2 }).default("0"),
-  serviceProviderIncome: numeric("service_provider_income", { precision: 10, scale: 2 }).default("0"),
+  serviceProviderIncome: numeric("service_provider_income", { precision: 10, scale: 2 }).default(
+    "0",
+  ),
   communityIncome: numeric("community_income", { precision: 10, scale: 2 }).default("0"),
   otherIncome: numeric("other_income", { precision: 10, scale: 2 }).default("0"),
   distributionNote: text("distribution_note"),
@@ -173,10 +172,9 @@ export const trainings = pgTable("trainings", {
 // ─── Tech Transfer ────────────────────────────────────────
 export const techTransfers = pgTable("tech_transfers", {
   id: varchar("transfer_id", { length: 50 }).primaryKey(),
-  innovationId: varchar("innovation_id", { length: 50 }).references(
-    () => innovations.id,
-    { onDelete: "set null" }
-  ),
+  innovationId: varchar("innovation_id", { length: 50 }).references(() => innovations.id, {
+    onDelete: "set null",
+  }),
   innovationName: varchar("innovation_name", { length: 255 }),
   participantCode: varchar("participant_code", { length: 20 }),
   participantName: varchar("participant_name", { length: 255 }),
@@ -319,12 +317,18 @@ export const productServicesRelations = relations(productServices, ({ one, many 
 }))
 
 export const transactionsRelations = relations(transactions, ({ one, many }) => ({
-  productService: one(productServices, { fields: [transactions.itemId], references: [productServices.id] }),
+  productService: one(productServices, {
+    fields: [transactions.itemId],
+    references: [productServices.id],
+  }),
   valueChains: many(valueChains),
 }))
 
 export const valueChainsRelations = relations(valueChains, ({ one }) => ({
-  transaction: one(transactions, { fields: [valueChains.transactionId], references: [transactions.id] }),
+  transaction: one(transactions, {
+    fields: [valueChains.transactionId],
+    references: [transactions.id],
+  }),
 }))
 
 export const innovationsRelations = relations(innovations, ({ many }) => ({
@@ -332,7 +336,10 @@ export const innovationsRelations = relations(innovations, ({ many }) => ({
 }))
 
 export const techTransfersRelations = relations(techTransfers, ({ one }) => ({
-  innovation: one(innovations, { fields: [techTransfers.innovationId], references: [innovations.id] }),
+  innovation: one(innovations, {
+    fields: [techTransfers.innovationId],
+    references: [innovations.id],
+  }),
 }))
 
 export const kpiManualInputsRelations = relations(kpiManualInputs, ({ one }) => ({

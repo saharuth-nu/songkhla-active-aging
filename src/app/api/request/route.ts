@@ -26,21 +26,25 @@ const schema = z.object({
 export async function POST(req: NextRequest) {
   try {
     const parsed = schema.parse(await req.json())
-    const [item] = await db.insert(transactions).values({
-      id: `TXN-${nanoid()}`,
-      ...parsed,
-      amount: parsed.amount?.toString(),
-      status: "pending",
-    }).returning({
-      id: transactions.id,
-      status: transactions.status,
-      requesterName: transactions.requesterName,
-      transactionDate: transactions.transactionDate,
-      createdAt: transactions.createdAt,
-    })
+    const [item] = await db
+      .insert(transactions)
+      .values({
+        id: `TXN-${nanoid()}`,
+        ...parsed,
+        amount: parsed.amount?.toString(),
+        status: "pending",
+      })
+      .returning({
+        id: transactions.id,
+        status: transactions.status,
+        requesterName: transactions.requesterName,
+        transactionDate: transactions.transactionDate,
+        createdAt: transactions.createdAt,
+      })
     return NextResponse.json({ data: item, trackingCode: item.id }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Request submission failed" }, { status: 500 })
   }
 }

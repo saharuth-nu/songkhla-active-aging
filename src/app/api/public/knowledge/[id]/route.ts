@@ -7,7 +7,9 @@ import { eq, and } from "drizzle-orm"
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
-    const [item] = await db.select().from(knowledgeContents)
+    const [item] = await db
+      .select()
+      .from(knowledgeContents)
       .where(and(eq(knowledgeContents.id, id), eq(knowledgeContents.isPublished, true)))
     if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 })
     return NextResponse.json({ data: item })

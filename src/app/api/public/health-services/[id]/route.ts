@@ -14,8 +14,8 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
         and(
           eq(productServices.id, id),
           eq(productServices.isActive, true),
-          eq(productServices.itemType, "health_service")
-        )
+          eq(productServices.itemType, "health_service"),
+        ),
       )
 
     if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 })

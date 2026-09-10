@@ -40,11 +40,16 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   try {
     const { id } = await params
     const parsed = updateSchema.parse(await req.json())
-    const [item] = await db.update(partners).set({ ...parsed, updatedAt: new Date() }).where(eq(partners.id, id)).returning()
+    const [item] = await db
+      .update(partners)
+      .set({ ...parsed, updatedAt: new Date() })
+      .where(eq(partners.id, id))
+      .returning()
     if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 })
     return NextResponse.json({ data: item })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to update" }, { status: 500 })
   }
 }
@@ -54,7 +59,10 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   if (auth instanceof NextResponse) return auth
   try {
     const { id } = await params
-    await db.update(partners).set({ isActive: false, updatedAt: new Date() }).where(eq(partners.id, id))
+    await db
+      .update(partners)
+      .set({ isActive: false, updatedAt: new Date() })
+      .where(eq(partners.id, id))
     return NextResponse.json({ message: "Partner deactivated" })
   } catch {
     return NextResponse.json({ error: "Failed to deactivate partner" }, { status: 500 })

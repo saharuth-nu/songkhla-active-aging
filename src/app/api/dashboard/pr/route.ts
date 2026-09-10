@@ -20,54 +20,56 @@ export async function GET(req: NextRequest) {
     if (dateFrom) txnConditions.push(gte(transactions.transactionDate, dateFrom))
     if (dateTo) txnConditions.push(lte(transactions.transactionDate, dateTo))
 
-    const [
-      pageviews,
-      bySource,
-      byCampaign,
-      byEventType,
-      conversionBySource,
-      featuredContent,
-    ] = await Promise.all([
-      db.select({ count: count() }).from(analyticsEvents)
-        .where(and(eq(analyticsEvents.eventType, "pageview"), ...evtConditions)),
+    const [pageviews, bySource, byCampaign, byEventType, conversionBySource, featuredContent] =
+      await Promise.all([
+        db
+          .select({ count: count() })
+          .from(analyticsEvents)
+          .where(and(eq(analyticsEvents.eventType, "pageview"), ...evtConditions)),
 
-      db.select({ source: analyticsEvents.utmSource, count: count() })
-        .from(analyticsEvents)
-        .where(evtConditions.length ? and(...evtConditions) : undefined)
-        .groupBy(analyticsEvents.utmSource)
-        .orderBy(sql`count(*) DESC`),
+        db
+          .select({ source: analyticsEvents.utmSource, count: count() })
+          .from(analyticsEvents)
+          .where(evtConditions.length ? and(...evtConditions) : undefined)
+          .groupBy(analyticsEvents.utmSource)
+          .orderBy(sql`count(*) DESC`),
 
-      db.select({ campaign: analyticsEvents.utmCampaign, count: count() })
-        .from(analyticsEvents)
-        .where(evtConditions.length ? and(...evtConditions) : undefined)
-        .groupBy(analyticsEvents.utmCampaign)
-        .orderBy(sql`count(*) DESC`),
+        db
+          .select({ campaign: analyticsEvents.utmCampaign, count: count() })
+          .from(analyticsEvents)
+          .where(evtConditions.length ? and(...evtConditions) : undefined)
+          .groupBy(analyticsEvents.utmCampaign)
+          .orderBy(sql`count(*) DESC`),
 
-      db.select({ eventType: analyticsEvents.eventType, count: count() })
-        .from(analyticsEvents)
-        .where(evtConditions.length ? and(...evtConditions) : undefined)
-        .groupBy(analyticsEvents.eventType),
+        db
+          .select({ eventType: analyticsEvents.eventType, count: count() })
+          .from(analyticsEvents)
+          .where(evtConditions.length ? and(...evtConditions) : undefined)
+          .groupBy(analyticsEvents.eventType),
 
-      db.select({ source: transactions.source, campaign: transactions.campaign, count: count() })
-        .from(transactions)
-        .where(txnConditions.length ? and(...txnConditions) : undefined)
-        .groupBy(transactions.source, transactions.campaign)
-        .orderBy(sql`count(*) DESC`)
-        .limit(10),
+        db
+          .select({ source: transactions.source, campaign: transactions.campaign, count: count() })
+          .from(transactions)
+          .where(txnConditions.length ? and(...txnConditions) : undefined)
+          .groupBy(transactions.source, transactions.campaign)
+          .orderBy(sql`count(*) DESC`)
+          .limit(10),
 
-      db.select({
-        id: knowledgeContents.id,
-        title: knowledgeContents.title,
-        contentType: knowledgeContents.contentType,
-        reach: knowledgeContents.reach,
-        engagement: knowledgeContents.engagement,
-        clickCount: knowledgeContents.clickCount,
-        channel: knowledgeContents.channel,
-      }).from(knowledgeContents)
-        .where(eq(knowledgeContents.isPublished, true))
-        .orderBy(sql`${knowledgeContents.reach} DESC NULLS LAST`)
-        .limit(10),
-    ])
+        db
+          .select({
+            id: knowledgeContents.id,
+            title: knowledgeContents.title,
+            contentType: knowledgeContents.contentType,
+            reach: knowledgeContents.reach,
+            engagement: knowledgeContents.engagement,
+            clickCount: knowledgeContents.clickCount,
+            channel: knowledgeContents.channel,
+          })
+          .from(knowledgeContents)
+          .where(eq(knowledgeContents.isPublished, true))
+          .orderBy(sql`${knowledgeContents.reach} DESC NULLS LAST`)
+          .limit(10),
+      ])
 
     return NextResponse.json({
       data: {

@@ -6,13 +6,15 @@ import { eq } from "drizzle-orm"
 // Public — KPI summary for /impact page, no auth required
 export async function GET() {
   try {
-    const targets = await db.select({
-      kpiCode: kpiTargets.kpiCode,
-      kpiName: kpiTargets.kpiName,
-      targetValue: kpiTargets.targetValue,
-      targetUnit: kpiTargets.targetUnit,
-      sortOrder: kpiTargets.sortOrder,
-    }).from(kpiTargets)
+    const targets = await db
+      .select({
+        kpiCode: kpiTargets.kpiCode,
+        kpiName: kpiTargets.kpiName,
+        targetValue: kpiTargets.targetValue,
+        targetUnit: kpiTargets.targetUnit,
+        sortOrder: kpiTargets.sortOrder,
+      })
+      .from(kpiTargets)
       .where(eq(kpiTargets.isActive, true))
       .orderBy(kpiTargets.sortOrder)
 

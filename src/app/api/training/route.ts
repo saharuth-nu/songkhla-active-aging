@@ -40,7 +40,9 @@ export async function GET(req: NextRequest) {
     if (dateFrom) conditions.push(gte(trainings.trainingDate, dateFrom))
     if (dateTo) conditions.push(lte(trainings.trainingDate, dateTo))
 
-    const result = await db.select().from(trainings)
+    const result = await db
+      .select()
+      .from(trainings)
       .where(conditions.length > 0 ? and(...conditions) : undefined)
       .orderBy(trainings.trainingDate)
 
@@ -57,17 +59,21 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const parsed = createSchema.parse(body)
 
-    const [item] = await db.insert(trainings).values({
-      id: `TRN-${nanoid()}`,
-      ...parsed,
-      durationHours: parsed.durationHours?.toString(),
-      preScore: parsed.preScore?.toString(),
-      postScore: parsed.postScore?.toString(),
-    }).returning()
+    const [item] = await db
+      .insert(trainings)
+      .values({
+        id: `TRN-${nanoid()}`,
+        ...parsed,
+        durationHours: parsed.durationHours?.toString(),
+        preScore: parsed.preScore?.toString(),
+        postScore: parsed.postScore?.toString(),
+      })
+      .returning()
 
     return NextResponse.json({ data: item }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to create training" }, { status: 500 })
   }
 }

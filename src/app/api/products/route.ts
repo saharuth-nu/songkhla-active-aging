@@ -36,16 +36,26 @@ export async function GET(req: NextRequest) {
     if (itemType) conditions.push(eq(productServices.itemType, itemType))
     if (area) conditions.push(eq(productServices.area, area))
     if (isActive !== null) conditions.push(eq(productServices.isActive, isActive === "true"))
-    const result = await db.select({
-      id: productServices.id, itemName: productServices.itemName, itemType: productServices.itemType,
-      category: productServices.category, description: productServices.description,
-      partnerId: productServices.partnerId, partnerName: partners.organizationName,
-      providerName: productServices.providerName, area: productServices.area,
-      priceMin: productServices.priceMin, priceMax: productServices.priceMax,
-      priceNote: productServices.priceNote, imageUrl: productServices.imageUrl,
-      isActive: productServices.isActive, sortOrder: productServices.sortOrder,
-      createdAt: productServices.createdAt,
-    }).from(productServices)
+    const result = await db
+      .select({
+        id: productServices.id,
+        itemName: productServices.itemName,
+        itemType: productServices.itemType,
+        category: productServices.category,
+        description: productServices.description,
+        partnerId: productServices.partnerId,
+        partnerName: partners.organizationName,
+        providerName: productServices.providerName,
+        area: productServices.area,
+        priceMin: productServices.priceMin,
+        priceMax: productServices.priceMax,
+        priceNote: productServices.priceNote,
+        imageUrl: productServices.imageUrl,
+        isActive: productServices.isActive,
+        sortOrder: productServices.sortOrder,
+        createdAt: productServices.createdAt,
+      })
+      .from(productServices)
       .leftJoin(partners, eq(productServices.partnerId, partners.id))
       .where(conditions.length > 0 ? and(...conditions) : undefined)
       .orderBy(productServices.sortOrder, productServices.createdAt)
@@ -60,14 +70,19 @@ export async function POST(req: NextRequest) {
   if (auth instanceof NextResponse) return auth
   try {
     const parsed = createSchema.parse(await req.json())
-    const [item] = await db.insert(productServices).values({
-      id: `PRD-${nanoid()}`, ...parsed,
-      priceMin: parsed.priceMin?.toString(),
-      priceMax: parsed.priceMax?.toString(),
-    }).returning()
+    const [item] = await db
+      .insert(productServices)
+      .values({
+        id: `PRD-${nanoid()}`,
+        ...parsed,
+        priceMin: parsed.priceMin?.toString(),
+        priceMax: parsed.priceMax?.toString(),
+      })
+      .returning()
     return NextResponse.json({ data: item }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to create product" }, { status: 500 })
   }
 }

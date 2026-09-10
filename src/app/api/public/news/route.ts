@@ -26,8 +26,8 @@ export async function GET(req: NextRequest) {
         and(
           eq(knowledgeContents.isPublished, true),
           sql`${knowledgeContents.contentType} IN ('news', 'report', 'article')`,
-          ...(isFeatured === "true" ? [eq(knowledgeContents.isFeatured, true)] : [])
-        )
+          ...(isFeatured === "true" ? [eq(knowledgeContents.isFeatured, true)] : []),
+        ),
       )
       .orderBy(desc(knowledgeContents.publishDate))
 

@@ -29,7 +29,7 @@ export function calculateProgress(actual: number, target: number): number {
 
 export function getKPIStatus(
   actual: number,
-  target: number
+  target: number,
 ): "achieved" | "on-track" | "at-risk" | "not-started" {
   const pct = calculateProgress(actual, target)
   if (pct >= 100) return "achieved"
@@ -52,7 +52,7 @@ export function buildUTMUrl(
     medium: string
     campaign: string
     content?: string
-  }
+  },
 ): string {
   const url = new URL(baseUrl)
   url.searchParams.set("utm_source", params.source)

@@ -36,9 +36,12 @@ export async function GET(req: NextRequest) {
     if (search) conditions.push(ilike(knowledgeContents.title, `%${search}%`))
     if (contentType) conditions.push(eq(knowledgeContents.contentType, contentType))
     if (channel) conditions.push(eq(knowledgeContents.channel, channel))
-    if (isPublished !== null) conditions.push(eq(knowledgeContents.isPublished, isPublished === "true"))
+    if (isPublished !== null)
+      conditions.push(eq(knowledgeContents.isPublished, isPublished === "true"))
 
-    const result = await db.select().from(knowledgeContents)
+    const result = await db
+      .select()
+      .from(knowledgeContents)
       .where(conditions.length > 0 ? and(...conditions) : undefined)
       .orderBy(knowledgeContents.publishDate)
 
@@ -55,14 +58,18 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const parsed = createSchema.parse(body)
 
-    const [item] = await db.insert(knowledgeContents).values({
-      id: `KNW-${nanoid()}`,
-      ...parsed,
-    }).returning()
+    const [item] = await db
+      .insert(knowledgeContents)
+      .values({
+        id: `KNW-${nanoid()}`,
+        ...parsed,
+      })
+      .returning()
 
     return NextResponse.json({ data: item }, { status: 201 })
   } catch (error) {
-    if (error instanceof z.ZodError) return NextResponse.json({ error: error.errors }, { status: 400 })
+    if (error instanceof z.ZodError)
+      return NextResponse.json({ error: error.errors }, { status: 400 })
     return NextResponse.json({ error: "Failed to create knowledge content" }, { status: 500 })
   }
 }
