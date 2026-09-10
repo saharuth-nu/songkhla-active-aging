@@ -24,6 +24,7 @@ export default function RootLayout({
     <html lang="th" suppressHydrationWarning>
       <body
         className={`${notoSansThai.className} ${notoSansThai.variable} ${inter.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
       </body>

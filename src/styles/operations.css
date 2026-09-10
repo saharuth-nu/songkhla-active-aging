@@ -1,0 +1,129 @@
+.ops-two-column {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.ops-two-column .admin-form-card h2,
+.ops-status-form h2,
+.ops-history h2 {
+  margin-bottom: var(--space-4);
+}
+
+.ops-two-column .admin-form-card > .workspace-button {
+  margin-top: var(--space-6);
+}
+
+.ops-check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sky);
+  color: var(--color-text-heading);
+}
+
+.ops-check input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  accent-color: var(--color-action);
+}
+
+.ops-steps,
+.ops-flow {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+
+.ops-steps li,
+.ops-flow span {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-sm);
+  background: var(--color-canvas);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.ops-steps li[aria-current="step"] {
+  border-color: var(--color-action);
+  background: var(--color-action-soft);
+  color: var(--color-action-active);
+  font-weight: var(--font-weight-semibold);
+}
+
+.ops-flow b {
+  color: var(--color-decorative-subtle);
+  text-align: center;
+}
+
+.ops-status-form,
+.ops-history {
+  margin-top: var(--space-6);
+}
+
+.ops-status-form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.ops-history {
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg);
+  background: var(--color-canvas);
+}
+
+.ops-history ol {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ops-history ol li {
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--color-border-strong);
+}
+
+.ops-history ol li > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.ops-history time {
+  color: var(--color-text-muted);
+  font-family: var(--font-family-latin);
+  font-size: var(--font-size-fine);
+}
+
+.ops-history p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 40rem) {
+  .ops-steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ops-flow {
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+    align-items: center;
+  }
+}
+
+@media (min-width: 70rem) {
+  .ops-two-column {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

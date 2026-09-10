@@ -1,8 +1,16 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 @import "../styles/base.css";
-@import "../styles/accessibility.css";
 @import "../styles/components.css";
+@import "../styles/prototype-layout.css";
+@import "../styles/prototype-components.css";
+@import "../styles/service-flow.css";
+@import "../styles/campaign.css";
+@import "../styles/workspace.css";
+@import "../styles/admin-data.css";
+@import "../styles/operations.css";
+@import "../styles/reporting.css";
+@import "../styles/accessibility.css";
 
 @theme inline {
   --color-primary: var(--color-action);

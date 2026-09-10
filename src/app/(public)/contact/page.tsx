@@ -1,9 +1,13 @@
-export default function Page() {
-  return (
-    <div className="mx-auto max-w-4xl px-4 py-16 text-center">
-      <div className="mb-4 text-4xl">🚧</div>
-      <h1 className="mb-2 text-2xl font-bold text-gray-900">อยู่ระหว่างพัฒนา</h1>
-      <p className="text-gray-500">หน้านี้จะพร้อมใช้งานเร็วๆ นี้</p>
-    </div>
-  )
+import { ContactPageView } from "@/features/public/contact/ContactPageView"
+import { partners } from "@/features/public/mocks/public-data"
+
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ partner?: string; subject?: string }>
+}) {
+  const query = await searchParams
+  const partner = partners.find(([id]) => id === query.partner)
+  const subject = partner ? `ติดต่อภาคี: ${partner[2]}` : query.subject
+  return <ContactPageView initialSubject={subject} />
 }
